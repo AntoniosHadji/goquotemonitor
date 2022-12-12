@@ -10,16 +10,34 @@ import (
 	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
+func init() {
+	fmt.Println("this is init")
+
+	// err = db.Ping()
+	// if err != nil {
+	// 	fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
+	// 	os.Exit(1)
+	// }
+
+	fmt.Println("Finish init")
+}
+
 func TestStdLibSQL(t *testing.T) {
+	var err error
+	var db *sql.DB
+
 	// Opening a driver typically will not attempt to connect to the database.
-	db, err := sql.Open("pgx", os.Getenv("DATABASE_URL"))
+	db, err = sql.Open("pgx", os.Getenv("DATABASE_URL"))
 	if err != nil {
 		// This will not be a connection error, but a DSN parse error or
 		// another initialization error.
 		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
 		os.Exit(1)
 	}
-	defer db.Close()
+
+	db.SetConnMaxLifetime(0)
+	db.SetMaxIdleConns(10)
+	db.SetMaxOpenConns(10)
 
 	var greeting string
 	err = db.QueryRow("select 'Hello, world!'").Scan(&greeting)
@@ -29,21 +47,25 @@ func TestStdLibSQL(t *testing.T) {
 	}
 
 	fmt.Println(greeting)
+
 }
 
 func TestInsert(t *testing.T) {
-	db, err := sql.Open("pgx", os.Getenv("DATABASE_URL"))
+	var err error
+	var db *sql.DB
+
+	// Opening a driver typically will not attempt to connect to the database.
+	db, err = sql.Open("pgx", os.Getenv("DATABASE_URL"))
 	if err != nil {
+		// This will not be a connection error, but a DSN parse error or
+		// another initialization error.
 		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
 		os.Exit(1)
 	}
-	defer db.Close()
 
 	db.SetConnMaxLifetime(0)
 	db.SetMaxIdleConns(10)
 	db.SetMaxOpenConns(10)
-
-	fmt.Printf("drivers: %v\n", sql.Drivers())
 
 	stmt, err := db.Prepare("INSERT INTO spreads (ts,bid,ask,size,width_bps,ticker,lp) VALUES($1,$2,$3,$4,$5,$6,$7)")
 	if err != nil {
