@@ -48,7 +48,6 @@ func init() {
 }
 
 func insertData(d InsertRow) (sql.Result, error) {
-
 	result, err := stmt.Exec(d.ts, d.bid, d.ask, d.size, d.width, d.ticker, d.lp)
 	if err != nil {
 		log.Println(err)

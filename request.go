@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"time"
 )
@@ -79,12 +80,12 @@ func ptQuoteRequest(payload io.Reader) (*QuoteResponse, error) {
 		fmt.Println(err)
 		return nil, err
 	}
-	fmt.Println(res.Status)
+	log.Println(res.Status)
 
 	var r QuoteResponse
 	if res.StatusCode == 201 {
 		if err = json.NewDecoder(res.Body).Decode(&r); err != nil {
-			fmt.Println(err)
+			log.Println(err)
 		}
 	} else {
 		fmt.Println(res.Status)
