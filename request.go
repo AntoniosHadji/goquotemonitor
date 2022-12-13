@@ -80,13 +80,18 @@ func ptQuoteRequest(payload io.Reader) (*QuoteResponse, error) {
 		fmt.Println(err)
 		return nil, err
 	}
-	log.Println(res.Status)
 
 	var r QuoteResponse
 	if res.StatusCode == 201 {
 		if err = json.NewDecoder(res.Body).Decode(&r); err != nil {
 			log.Println(err)
 		}
+		log.Printf(
+			"Status: %s for %f %s\n",
+			res.Status,
+			r.Data.Attributes.UnitCount,
+			r.Data.Attributes.AssetName,
+		)
 	} else {
 		fmt.Println(res.Status)
 		fmt.Println(res)

@@ -82,11 +82,9 @@ func dowork(w Work) {
 			ch <- r
 		}()
 
-		fmt.Println("Waiting...")
 		wg.Wait()
 		// not using a loop so I don't need to close the channel
 		// close(ch)
-		fmt.Println("Done waiting.")
 
 		response1 := <-ch
 		response2 := <-ch
