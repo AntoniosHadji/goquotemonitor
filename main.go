@@ -45,7 +45,7 @@ func main() {
 			defer mainwg.Done()
 			dowork(w)
 		}()
-		time.Sleep(127 * time.Millisecond)
+		time.Sleep(2 * time.Second)
 	}
 	log.Println("Waiting for Main WaitGroup.")
 	mainwg.Wait()
