@@ -69,7 +69,7 @@ func ptQuoteRequest(payload io.Reader) (*QuoteResponse, error) {
 	path := fmt.Sprintf("%s/%s/quotes", baseurl, version)
 	req, err := http.NewRequest("POST", path, payload)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return nil, err
 	}
 	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", string(p)))
@@ -77,15 +77,16 @@ func ptQuoteRequest(payload io.Reader) (*QuoteResponse, error) {
 
 	res, err := client.Do(req)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return nil, err
 	}
 
 	var r QuoteResponse
+	if err = json.NewDecoder(res.Body).Decode(&r); err != nil {
+		log.Println(err)
+		return nil, err
+	}
 	if res.StatusCode == 201 {
-		if err = json.NewDecoder(res.Body).Decode(&r); err != nil {
-			log.Println(err)
-		}
 		log.Printf(
 			"Status: %s for %f %s\n",
 			res.Status,
@@ -95,7 +96,8 @@ func ptQuoteRequest(payload io.Reader) (*QuoteResponse, error) {
 	} else {
 		fmt.Println(res.Status)
 		fmt.Println(res)
-		fmt.Println(res.Body)
+		fmt.Printf("%#v", r)
+		return nil, fmt.Errorf("Bad status: %s\n%#v", res.Status, r)
 	}
 
 	return &r, nil

@@ -126,3 +126,14 @@ func TestSendQuoteRequest(t *testing.T) {
 	fmt.Println("Finished loop over channel")
 
 }
+
+func TestEmptyQuoteResponse(t *testing.T) {
+	qr := new(QuoteResponse)
+	fmt.Println(qr)
+
+	if qr != nil {
+		fmt.Println("qr is not nil")
+	}
+	fmt.Println(qr.Data.Attributes.PricePerUnit)
+
+}

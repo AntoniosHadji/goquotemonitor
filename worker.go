@@ -59,11 +59,11 @@ func dowork(w Work) {
 
 			pb, err := json.Marshal(bidreq)
 			if err != nil {
-				fmt.Println(err)
+				log.Println(err)
 			}
 			r, err := ptQuoteRequest(bytes.NewBuffer(pb))
 			if err != nil {
-				fmt.Println(err)
+				log.Println(err)
 			}
 			ch <- r
 		}()
@@ -73,11 +73,11 @@ func dowork(w Work) {
 
 			pb, err := json.Marshal(askreq)
 			if err != nil {
-				fmt.Println(err)
+				log.Println(err)
 			}
 			r, err := ptQuoteRequest(bytes.NewBuffer(pb))
 			if err != nil {
-				fmt.Println(err)
+				log.Println(err)
 			}
 			ch <- r
 		}()
@@ -88,6 +88,12 @@ func dowork(w Work) {
 
 		response1 := <-ch
 		response2 := <-ch
+
+		if response1 == nil || response2 == nil {
+			// http requests failed with error message
+			time.Sleep(3 * time.Second)
+			continue
+		}
 
 		var bid, ask float64
 		if response1.Data.Attributes.TransactionType == "buy" {
