@@ -6,10 +6,22 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 	"time"
 )
 
-var p = "eyJhbGciOiJIUzI1NiJ9.eyJhdXRoX3NlY3JldCI6ImEzNTUzZDhiLWYyNTYtNGI0My04ZGNhLTM0N2Y0MzkyNTRhYiIsInVzZXJfZ3JvdXBzIjpbImJvdHMiLCJjYXNoX21hbmFnZXJzIiwiY29tcGxpYW5jZV9vZmZpY2VycyIsImN1c3RvbWVyX3NlcnZpY2VfcmVwcyIsImVuZ2luZWVycyIsImludmVzdG1lbnRfb2ZmaWNlcnMiLCJsaXF1aWRpdHlfbWFuYWdlcnMiLCJ0cmFkZV9kZXNrcyIsInNhbGVzX21hbmFnZXJzIiwidHJ1c3Rfb2ZmaWNlcnMiXSwibm93IjoxNjQzMzk2NDk3LCJleHAiOjE2NzI1MzEyMDB9.eLCS46U_4MEy7oKTvMm8X1uH4N2XXZ8T4NU5VLZgfNY"
+var p string
+
+func init() {
+	val, ok := os.LookupEnv("TOKEN")
+	if ok {
+		p = val
+	} else {
+		fmt.Println("environment variable TOKEN is not Defined")
+		os.Exit(1)
+	}
+}
+
 var client = &http.Client{}
 var baseurl = "https://api.primetrust.com"
 var version = "v2"
