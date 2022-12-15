@@ -23,7 +23,7 @@ func init() {
 }
 
 var client = &http.Client{}
-var baseurl = "https://api.primetrust.com"
+var ptBaseURL = "https://api.primetrust.com"
 var version = "v2"
 
 // QuoteResponse struct to store response from /v2/quotes API
@@ -78,7 +78,7 @@ type QuoteRequestAttrs struct {
 // ====================================================================
 
 func ptQuoteRequest(payload io.Reader) (*QuoteResponse, error) {
-	path := fmt.Sprintf("%s/%s/quotes", baseurl, version)
+	path := fmt.Sprintf("%s/%s/quotes", ptBaseURL, version)
 	req, err := http.NewRequest("POST", path, payload)
 	if err != nil {
 		log.Println(err)
