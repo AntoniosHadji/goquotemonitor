@@ -39,7 +39,7 @@ func TestInsert(t *testing.T) {
 		size:   1.0,
 		width:  26.5,
 		ticker: "BTC",
-		lp:     "DV",
+		lp:     "TEST",
 	}
 
 	result, err := stmt.Exec(data.ts, data.bid, data.ask, data.size, data.width, data.ticker, data.lp)

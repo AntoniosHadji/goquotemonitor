@@ -2,7 +2,7 @@ package main
 
 import "testing"
 
-func TestCopyReqBody(t *testing.T) {
+func TestWorker(t *testing.T) {
 
 	w := Work{"Enigma", "BTC", 1.0}
 
