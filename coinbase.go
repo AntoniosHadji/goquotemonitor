@@ -11,11 +11,9 @@ var cbBaseURL = "https://api.exchange.coinbase.com"
 
 // CoinbaseBookResponse ...
 type CoinbaseBookResponse struct {
-	Bids        [][]interface{} `json:"bids"`
-	Asks        [][]interface{} `json:"asks"`
-	Sequence    int64           `json:"sequence"`
-	AuctionMode bool            `json:"auction_mode"`
-	Auction     interface{}     `json:"auction"`
+	Bids     [][]interface{} `json:"bids"`
+	Asks     [][]interface{} `json:"asks"`
+	Sequence int64           `json:"sequence"`
 }
 
 func getBook(ticker string) (*CoinbaseBookResponse, error) {
