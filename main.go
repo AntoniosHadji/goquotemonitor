@@ -46,12 +46,18 @@ func main() {
 	for i, w := range WorkList {
 		log.Printf("%d: %#v", i, w)
 		mainwg.Add(1)
-		go func() {
+		go func(w Work) {
 			defer mainwg.Done()
 			dowork(w)
-		}()
-		time.Sleep(2 * time.Second)
+		}(w)
+		if i < len(WorkList)-1 && WorkList[i].ticker != WorkList[i+1].ticker {
+			time.Sleep(2 * time.Second)
+			log.Println("Pausing to reduce load on PT API")
+		}
 	}
+
+	go cbwork("BTC", 1)
+
 	log.Println("Waiting for Main WaitGroup.")
 	mainwg.Wait()
 	log.Println("Main WaitGroup ended.")

@@ -49,14 +49,14 @@ func getBook(ticker string) (*CoinbaseBookResponse, error) {
 	return &r, nil
 }
 
-func calcSpread(data *CoinbaseBookResponse, size float64) float64 {
+func calcSpread(data *CoinbaseBookResponse, size float64) (float64, float64, float64) {
 
 	bid := getSize(data.Bids, size)
 	ask := getSize(data.Asks, size)
 	// debug
 	//fmt.Println(bid, ask)
 
-	return 10000 * (ask - bid) / bid
+	return bid, ask, 10000 * (ask - bid) / bid
 
 }
 

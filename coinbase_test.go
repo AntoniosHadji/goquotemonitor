@@ -48,8 +48,12 @@ func TestCalcSpread(t *testing.T) {
 	// fmt.Printf("bids: %v\n", data.Bids)
 	// fmt.Printf("asks: %v\n", data.Asks)
 
-	result := calcSpread(&data, 1)
-	fmt.Println(result, "bps")
+	bid, ask, result := calcSpread(&data, 1)
+	fmt.Println(bid, ask, result, "bps")
 	fmt.Printf("%.3f bps\n", result)
 
+}
+
+func TestCBWork(t *testing.T) {
+	cbwork("BTC", 1)
 }
