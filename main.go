@@ -6,6 +6,11 @@ import (
 	"time"
 )
 
+func init() {
+	// https://pkg.go.dev/log#pkg-constants
+	log.SetFlags(log.LstdFlags | log.Lmicroseconds | log.Lshortfile)
+}
+
 // Work struct containing details of each quote pair
 type Work struct {
 	lp     string
