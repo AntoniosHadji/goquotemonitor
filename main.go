@@ -34,12 +34,8 @@ var WorkList = []Work{
 }
 
 func main() {
-	var err error
+	// var err error
 	defer db.Close()
-	stmt, err = db.Prepare("INSERT INTO spreads (ts,bid,ask,size,width_bps,ticker,lp) VALUES($1,$2,$3,$4,$5,$6,$7)")
-	if err != nil {
-		log.Fatal(err)
-	}
 	defer stmt.Close() // Prepared statements take up server resources and should be closed after use.
 
 	var mainwg sync.WaitGroup

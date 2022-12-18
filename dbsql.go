@@ -45,6 +45,11 @@ func init() {
 		os.Exit(1)
 	}
 
+	stmt, err = db.Prepare("INSERT INTO spreads (ts,bid,ask,size,width_bps,ticker,lp) VALUES($1,$2,$3,$4,$5,$6,$7)")
+	if err != nil {
+		log.Fatal(err)
+	}
+
 }
 
 func insertData(d InsertRow) (sql.Result, error) {
