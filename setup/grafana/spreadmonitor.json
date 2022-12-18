@@ -113,7 +113,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT ts, width_bps FROM spreads where size = 1 and ticker = 'BTC' and lp = 'DV'",
+          "rawSql": "SELECT ts, width_bps FROM spreads where size = 1 and ticker = 'BTC' and lp = 'DV' ORDER BY ts",
           "refId": "A",
           "sql": {
             "columns": [
@@ -254,7 +254,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT ts, width_bps FROM spreads where size = 1 and ticker = 'BTC' and lp = 'Enigma'",
+          "rawSql": "SELECT ts, width_bps FROM spreads where size = 1 and ticker = 'BTC' and lp = 'Enigma' ORDER BY ts",
           "refId": "A",
           "sql": {
             "columns": [
@@ -379,7 +379,7 @@
           "format": "table",
           "key": "Q-6de2f2a4-c545-49fb-8679-670414eb7f88-0",
           "rawQuery": true,
-          "rawSql": "SELECT ts, width_bps FROM spreads where size = 1 and ticker = 'BTC' and lp = 'DV'",
+          "rawSql": "SELECT ts, width_bps FROM spreads where size = 1 and ticker = 'BTC' and lp = 'DV' ORDER BY ts",
           "refId": "A",
           "sql": {
             "columns": [
@@ -432,7 +432,7 @@
           "format": "table",
           "hide": false,
           "rawQuery": true,
-          "rawSql": "SELECT ts, width_bps FROM spreads where size = 1 and ticker = 'BTC' and lp = 'Enigma'",
+          "rawSql": "SELECT ts, width_bps FROM spreads where size = 1 and ticker = 'BTC' and lp = 'Enigma' ORDER BY ts",
           "refId": "B",
           "sql": {
             "columns": [
@@ -578,7 +578,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT ts, width_bps FROM spreads where size = 0.01 and ticker = 'BTC' and lp = 'DV'",
+          "rawSql": "SELECT ts, width_bps FROM spreads where size = 0.01 and ticker = 'BTC' and lp = 'DV' ORDER BY ts",
           "refId": "A",
           "sql": {
             "columns": [
@@ -767,7 +767,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT ts, width_bps FROM spreads where size = 0.01 and ticker = 'BTC' and lp = 'Enigma'",
+          "rawSql": "SELECT ts, width_bps FROM spreads where size = 0.01 and ticker = 'BTC' and lp = 'Enigma' ORDER BY ts",
           "refId": "A",
           "sql": {
             "columns": [
@@ -920,7 +920,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT ts, width_bps FROM spreads where size = 1 and ticker = 'ETH' and lp = 'DV'",
+          "rawSql": "SELECT ts, width_bps FROM spreads where size = 1 and ticker = 'ETH' and lp = 'DV' ORDER BY ts",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1060,7 +1060,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT ts, width_bps FROM spreads where size = 1 and ticker = 'ETH' and lp = 'Enigma'",
+          "rawSql": "SELECT ts, width_bps FROM spreads where size = 1 and ticker = 'ETH' and lp = 'Enigma' ORDER BY ts",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1183,7 +1183,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT ts, width_bps FROM spreads where size = 1 and ticker = 'LTC' and lp = 'DV'",
+          "rawSql": "SELECT ts, width_bps FROM spreads where size = 1 and ticker = 'LTC' and lp = 'DV' ORDER BY ts",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1306,7 +1306,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT ts, width_bps FROM spreads where size = 10 and ticker = 'AVAX' and lp = 'DV'",
+          "rawSql": "SELECT ts, width_bps FROM spreads where size = 10 and ticker = 'AVAX' and lp = 'DV' ORDER BY ts",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1429,7 +1429,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT ts, width_bps FROM spreads where size = 10 and ticker = 'SOL' and lp = 'DV'",
+          "rawSql": "SELECT ts, width_bps FROM spreads where size = 10 and ticker = 'SOL' and lp = 'DV' ORDER BY ts",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1675,7 +1675,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT ts, width_bps FROM spreads where size = 100 and ticker = 'USDT' and lp = 'DV'",
+          "rawSql": "SELECT ts, width_bps FROM spreads where size = 100 and ticker = 'USDT' and lp = 'DV' ORDER BY ts",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1713,6 +1713,146 @@
       ],
       "title": "DV Chain Spread 100 USDT",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "5pO2zHKVz"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "width_bps"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 96
+      },
+      "id": 15,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "5pO2zHKVz"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT ts, width_bps FROM spreads where size = 1 and ticker = 'BTC' and lp = 'Coinbase' ORDER BY ts",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "\"time\"",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "enbps",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "table": "quote_widths"
+        }
+      ],
+      "title": "Coinbase Spread 1 BTC",
+      "type": "timeseries"
     }
   ],
   "refresh": "1m",
@@ -1730,6 +1870,6 @@
   "timezone": "",
   "title": "Spread GoQuoteMonitor",
   "uid": "xU1RSIcVz",
-  "version": 11,
+  "version": 14,
   "weekStart": ""
 }
