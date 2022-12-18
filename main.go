@@ -19,6 +19,7 @@ type Work struct {
 }
 
 // WorkList - list of work to do
+// TODO: move this to database, with access via http server
 var WorkList = []Work{
 	{"Enigma", "BTC", 1.0},
 	{"DV", "BTC", 1.0},
@@ -34,26 +35,34 @@ var WorkList = []Work{
 }
 
 func main() {
-	// var err error
 	defer db.Close()
 	defer stmt.Close() // Prepared statements take up server resources and should be closed after use.
 
 	var mainwg sync.WaitGroup
 	for i, w := range WorkList {
 		log.Printf("%d: %#v", i, w)
+
 		mainwg.Add(1)
 		go func(w Work) {
 			defer mainwg.Done()
 			dowork(w)
 		}(w)
+
 		if i < len(WorkList)-1 && WorkList[i].ticker != WorkList[i+1].ticker {
+			// TODO: this is fragile code that may not be necessary
+			// reduce number of concurrent calls to the API
+			// delay between unrelated quotes based on order of WorkList
 			time.Sleep(2 * time.Second)
-			log.Println("Pausing to reduce load on PT API")
 		}
 	}
 
-	go cbwork("BTC", 1)
+	mainwg.Add(1)
+	go func() {
+		defer mainwg.Done()
+		cbwork("BTC", 1)
+	}()
 
+	// TODO: add mechanism for stopping go routines
 	log.Println("Waiting for Main WaitGroup.")
 	mainwg.Wait()
 	log.Println("Main WaitGroup ended.")
