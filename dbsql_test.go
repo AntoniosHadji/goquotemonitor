@@ -38,7 +38,7 @@ func TestInsert(t *testing.T) {
 		ask:    17150.50,
 		size:   1.0,
 		width:  26.5,
-		ticker: "BTC",
+		ticker: "XXX",
 		lp:     "TEST",
 	}
 
@@ -46,6 +46,32 @@ func TestInsert(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	fmt.Println(result)
+	id, err := result.LastInsertId()
+	if err != nil {
+		fmt.Println(err)
+		//t.Fatal(err)
+	}
+	rows, err := result.RowsAffected()
+	if err != nil {
+		fmt.Println(err)
+		//t.Fatal(err)
+	}
+	fmt.Printf("id: %d , rows: %d\n", id, rows)
+
+	result, err = db.Exec("DELETE FROM spreads WHERE lp = $1;", "TEST")
+	if err != nil {
+		t.Fatal("Failed delete query.", err)
+	}
+	id, err = result.LastInsertId()
+	if err != nil {
+		fmt.Println(err)
+		//t.Fatal(err)
+	}
+	rows, err = result.RowsAffected()
+	if err != nil {
+		fmt.Println(err)
+		//t.Fatal(err)
+	}
+	fmt.Printf("id: %d , rows: %d\n", id, rows)
 
 }
