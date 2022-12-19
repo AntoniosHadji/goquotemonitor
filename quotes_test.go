@@ -29,7 +29,7 @@ func TestPTRequestBody(t *testing.T) {
 		DelayedSettlement: true,
 	}
 
-	var reqdataOrig = PTRequestBody{
+	var reqdataOrig = PTQuotesRequestBody{
 		QRData{
 			Type: "quotes",
 			Attributes: QuoteRequestAttrs{
@@ -61,7 +61,7 @@ func TestPTRequestBody(t *testing.T) {
 
 func TestPrepareQuoteRequest(t *testing.T) {
 
-	var reqdata = PTRequestBody{
+	var reqdata = PTQuotesRequestBody{
 		QRData{
 			Type: "quotes",
 			Attributes: QuoteRequestAttrs{

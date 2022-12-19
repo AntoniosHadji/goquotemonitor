@@ -1,9 +1,9 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
-	"io"
 	"log"
 	"net/http"
 	"os"
@@ -53,8 +53,8 @@ type QuoteResponse struct {
 	} `json:"data"`
 }
 
-// PTRequestBody payload for request to /v2/quotes API
-type PTRequestBody struct {
+// PTQuotesRequestBody payload for request to /v2/quotes API
+type PTQuotesRequestBody struct {
 	Data QRData `json:"data"`
 }
 
@@ -77,9 +77,16 @@ type QuoteRequestAttrs struct {
 
 // ====================================================================
 
-func ptQuoteRequest(payload io.Reader) (*QuoteResponse, error) {
+func ptQuoteRequest(payload *PTQuotesRequestBody) (*QuoteResponse, error) {
+	pb, err := json.Marshal(payload)
+	if err != nil {
+		log.Println(err)
+	}
+
+	body := bytes.NewBuffer(pb)
+
 	path := fmt.Sprintf("%s/%s/quotes", ptBaseURL, version)
-	req, err := http.NewRequest("POST", path, payload)
+	req, err := http.NewRequest("POST", path, body)
 	if err != nil {
 		log.Println(err)
 		return nil, err

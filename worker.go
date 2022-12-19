@@ -1,8 +1,6 @@
 package main
 
 import (
-	"bytes"
-	"encoding/json"
 	"log"
 	"sync"
 	"time"
@@ -26,7 +24,7 @@ var assets = map[string]string{
 var account = "0c7715e3-7cdd-4d49-88bb-f1ab3cb8803b"
 
 func dowork(w Work) {
-	bidreq := PTRequestBody{
+	bidreq := PTQuotesRequestBody{
 		QRData{
 			Type: "quotes",
 			Attributes: QuoteRequestAttrs{
@@ -53,11 +51,7 @@ func dowork(w Work) {
 		go func() {
 			defer wg.Done()
 
-			pb, err := json.Marshal(bidreq)
-			if err != nil {
-				log.Println(err)
-			}
-			r, err := ptQuoteRequest(bytes.NewBuffer(pb))
+			r, err := ptQuoteRequest(&bidreq)
 			if err != nil {
 				log.Println(err)
 			}
@@ -67,11 +61,7 @@ func dowork(w Work) {
 		go func() {
 			defer wg.Done()
 
-			pb, err := json.Marshal(askreq)
-			if err != nil {
-				log.Println(err)
-			}
-			r, err := ptQuoteRequest(bytes.NewBuffer(pb))
+			r, err := ptQuoteRequest(&askreq)
 			if err != nil {
 				log.Println(err)
 			}
