@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	"sync"
-	"time"
 )
 
 func init() {
@@ -48,12 +47,6 @@ func main() {
 			dowork(w)
 		}(w)
 
-		if i < len(WorkList)-1 && WorkList[i].ticker != WorkList[i+1].ticker {
-			// TODO: this is fragile code that may not be necessary
-			// reduce number of concurrent calls to the API
-			// delay between unrelated quotes based on order of WorkList
-			time.Sleep(2 * time.Second)
-		}
 	}
 
 	mainwg.Add(1)

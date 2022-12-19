@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"log"
 	"sync"
 	"time"
@@ -45,9 +44,6 @@ func dowork(w Work) {
 
 	askreq := bidreq
 	askreq.Data.Attributes.TransactionType = "buy"
-
-	fmt.Println(bidreq)
-	fmt.Println(askreq)
 
 	var wg sync.WaitGroup
 	ch := make(chan *QuoteResponse, 2)
