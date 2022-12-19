@@ -36,14 +36,15 @@ Create database using `setup/primetrust.sql`
 Start executable
 
 
-Via Docker (assuming docker image is named `quotes:ubuntu`) :
+Via Docker (assuming docker image is named `quotes:ubuntu`):  
 `docker run -it --env-file ./setup/env quotes:ubuntu`
 
 File format for env-file is list of VAR/VALUE pairs:
 
-`DATABASE_URL=postgres://postgres:password@172.17.0.2/primetrust
+```
+DATABASE_URL=postgres://postgres:password@172.17.0.2/primetrust
 TOKEN=eyJhbGciOiJIUzI1NiJ9...
-`
+```
 
 To exit:
 --------
