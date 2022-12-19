@@ -16,10 +16,11 @@ using https://cloud.primetrust.com/accounts/0c7715e3-7cdd-4d49-88bb-f1ab3cb8803b
 
 
 
-TODO:
-[ ] Current quote parameters are hard coded into the executable.
-[ ] Create mechanism to shutdown goroutines instead of just CTRL-C to exit.
-[ ] Remove other hard coded configuration
+TODO:  
+
+[ ] Current quote parameters are hard coded into the executable.  
+[ ] Create mechanism to shutdown goroutines instead of just CTRL-C to exit.  
+[ ] Remove other hard coded configuration  
     - account-id
 
 To run:
