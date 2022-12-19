@@ -51,8 +51,8 @@ func getBook(ticker string) (*CoinbaseBookResponse, error) {
 
 func calcSpread(data *CoinbaseBookResponse, size float64) (float64, float64, float64) {
 
-	bid := getSize(data.Bids, size)
-	ask := getSize(data.Asks, size)
+	bid := getPriceForSize(data.Bids, size)
+	ask := getPriceForSize(data.Asks, size)
 	// debug
 	//fmt.Println(bid, ask)
 
@@ -60,7 +60,7 @@ func calcSpread(data *CoinbaseBookResponse, size float64) (float64, float64, flo
 
 }
 
-func getSize(data [][]interface{}, size float64) float64 {
+func getPriceForSize(data [][]interface{}, size float64) float64 {
 
 	// fmt.Println(len(data), ",psum", ",ssum", ",psum/ssum", ",p", ",s")
 	var p, s, psum, ssum, z float64
