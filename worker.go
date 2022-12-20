@@ -44,8 +44,8 @@ func dowork(w Work) {
 	ch := make(chan *QuoteResponse, 2)
 
 	for {
-		wg.Add(2)
 		go func() {
+			wg.Add(1)
 			defer wg.Done()
 
 			r, err := ptQuoteRequest(&bidreq)
@@ -56,6 +56,7 @@ func dowork(w Work) {
 		}()
 
 		go func() {
+			wg.Add(1)
 			defer wg.Done()
 
 			r, err := ptQuoteRequest(&askreq)

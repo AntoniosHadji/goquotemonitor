@@ -41,16 +41,15 @@ func main() {
 	for i, w := range WorkList {
 		log.Printf("%d: %#v", i, w)
 
-		mainwg.Add(1)
 		go func(w Work) {
+			mainwg.Add(1)
 			defer mainwg.Done()
 			dowork(w)
 		}(w)
-
 	}
 
-	mainwg.Add(1)
 	go func() {
+		mainwg.Add(1)
 		defer mainwg.Done()
 		cbwork("BTC", 1)
 	}()
