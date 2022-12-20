@@ -15,6 +15,12 @@ type PTRequestBodyTest struct {
 	} `json:"data"`
 }
 
+// QRData ... original struct used before upgrade above
+type QRData struct {
+	Type       string            `json:"type"`
+	Attributes QuoteRequestAttrs `json:"attributes"`
+}
+
 func TestPTRequestBody(t *testing.T) {
 
 	var reqdata = PTRequestBodyTest{}

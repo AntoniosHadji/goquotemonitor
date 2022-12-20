@@ -55,13 +55,10 @@ type QuoteResponse struct {
 
 // PTQuotesRequestBody payload for request to /v2/quotes API
 type PTQuotesRequestBody struct {
-	Data QRData `json:"data"`
-}
-
-// QRData ...
-type QRData struct {
-	Type       string            `json:"type"`
-	Attributes QuoteRequestAttrs `json:"attributes"`
+	Data struct {
+		Type       string            `json:"type"`
+		Attributes QuoteRequestAttrs `json:"attributes"`
+	} `json:"data"`
 }
 
 // QuoteRequestAttrs is attributes for Quote request

@@ -24,16 +24,13 @@ var assets = map[string]string{
 var account = "0c7715e3-7cdd-4d49-88bb-f1ab3cb8803b"
 
 func dowork(w Work) {
-	bidreq := PTQuotesRequestBody{
-		QRData{
-			Type: "quotes",
-			Attributes: QuoteRequestAttrs{
-				AccountID:       account,
-				AssetID:         assets[w.ticker],
-				TransactionType: "sell",
-				UnitCount:       w.size,
-			},
-		},
+	bidreq := PTQuotesRequestBody{}
+	bidreq.Data.Type = "quotes"
+	bidreq.Data.Attributes = QuoteRequestAttrs{
+		AccountID:       account,
+		AssetID:         assets[w.ticker],
+		TransactionType: "sell",
+		UnitCount:       w.size,
 	}
 	if w.lp == "Enigma" {
 		bidreq.Data.Attributes.DelayedSettlement = true
