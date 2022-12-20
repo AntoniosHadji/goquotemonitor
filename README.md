@@ -55,5 +55,5 @@ CTRL-C
 History:
 --------
 
-2022-12-16 Added Coinbase worker
-2022-12-20 No time delay between initial requests + refactor updates
+* 2022-12-16 Added Coinbase worker
+* 2022-12-20 No time delay between initial requests + refactor updates
