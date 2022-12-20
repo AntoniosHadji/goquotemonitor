@@ -50,7 +50,7 @@ type QuoteResponse struct {
 			TransactionType   string    `json:"transaction-type"`
 			UnitCount         float64   `json:"unit-count"`
 		} `json:"attributes"`
-	} `json:"data"`
+	} `json:"data,omitempty"`
 }
 
 // PTQuotesRequestBody payload for request to /v2/quotes API
@@ -112,7 +112,7 @@ func ptQuoteRequest(payload *PTQuotesRequestBody) (*QuoteResponse, error) {
 	} else {
 		fmt.Println(res.Status)
 		fmt.Println(res)
-		fmt.Printf("%#v", r)
+		fmt.Printf("%#v\n", r)
 		return nil, fmt.Errorf("Bad status: %s\n%#v", res.Status, r)
 	}
 

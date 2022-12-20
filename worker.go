@@ -43,6 +43,8 @@ func dowork(w Work) {
 	var wg sync.WaitGroup
 	ch := make(chan *QuoteResponse, 2)
 
+	// run loop only once per minute
+	var delay = 60
 	for {
 		go func() {
 			wg.Add(1)
@@ -75,7 +77,8 @@ func dowork(w Work) {
 
 		if response1 == nil || response2 == nil {
 			// http requests failed with error message
-			time.Sleep(3 * time.Second)
+			log.Println("Received nil response from API. No data recorded.")
+			time.Sleep(time.Duration(delay) * time.Second)
 			continue
 		}
 
@@ -103,6 +106,6 @@ func dowork(w Work) {
 		}
 		ra, _ := result.RowsAffected()
 		log.Printf("Inserted %d row for LP: %s ticker: %s size: %f.\n", ra, w.lp, w.ticker, w.size)
-		time.Sleep(60 * time.Second)
+		time.Sleep(time.Duration(delay) * time.Second)
 	}
 }
