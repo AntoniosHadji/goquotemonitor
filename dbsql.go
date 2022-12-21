@@ -50,6 +50,10 @@ func init() {
 		log.Fatal(err)
 	}
 
+	WorkList, err = getWork()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func insertData(d InsertRow) (sql.Result, error) {
@@ -60,4 +64,27 @@ func insertData(d InsertRow) (sql.Result, error) {
 
 	return result, err
 
+}
+
+func getWork() ([]Work, error) {
+
+	var worklist []Work
+
+	rows, err := db.Query("SELECT * FROM work order by ticker,size,lp")
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+	defer rows.Close()
+	// Loop through rows, using Scan to assign column data to struct fields.
+	for rows.Next() {
+		var w Work
+		if err := rows.Scan(&w.lp, &w.ticker, &w.size); err != nil {
+			return nil, fmt.Errorf("%v", err)
+		}
+		worklist = append(worklist, w)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+	return worklist, nil
 }

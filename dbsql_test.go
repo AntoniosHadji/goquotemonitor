@@ -75,3 +75,31 @@ func TestInsert(t *testing.T) {
 	fmt.Printf("id: %d , rows: %d\n", id, rows)
 
 }
+
+func TestQuerySelect(t *testing.T) {
+
+	var worklist []Work
+
+	rows, err := db.Query("SELECT * FROM work order by ticker,size,lp")
+	if err != nil {
+		fmt.Println(fmt.Errorf("%v", err))
+	}
+	defer rows.Close()
+	// Loop through rows, using Scan to assign column data to struct fields.
+	for rows.Next() {
+		var w Work
+		if err := rows.Scan(&w.lp, &w.ticker, &w.size); err != nil {
+			fmt.Println(fmt.Errorf("%v", err))
+		}
+		worklist = append(worklist, w)
+	}
+	if err := rows.Err(); err != nil {
+		fmt.Println(fmt.Errorf("%v", err))
+	}
+
+	fmt.Println(worklist)
+
+	for i, item := range worklist {
+		fmt.Println(i, item)
+	}
+}
