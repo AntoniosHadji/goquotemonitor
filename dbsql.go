@@ -37,7 +37,8 @@ func init() {
 
 	db.SetConnMaxLifetime(0)
 	db.SetMaxIdleConns(10)
-	db.SetMaxOpenConns(10)
+	// default Postgres maximum
+	db.SetMaxOpenConns(100)
 
 	err = db.Ping()
 	if err != nil {
