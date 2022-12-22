@@ -16,6 +16,8 @@ RUN go build -o goquotemonitor .
 # run with --env-file ./env to include env vars in runtime
 
 FROM ubuntu:latest
+ARG DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && apt-get install -y \
   ca-certificates \
   && rm -rf /var/lib/apt/lists/*
@@ -24,6 +26,7 @@ WORKDIR /app
 
 COPY --from=build /app/goquotemonitor .
 
+# TODO: for future web server
 EXPOSE 8080
 
 CMD ["./goquotemonitor"]
