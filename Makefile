@@ -19,3 +19,8 @@ grafana:
 		-p 3000:3000 \
 		-d grafana/grafana
 
+start:
+	docker run --name quotemonitor \
+		--env-file ./setup/env \
+		-p 8080:8080 \
+		-d quotes:ubuntu
