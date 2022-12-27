@@ -39,10 +39,10 @@ func getBook(ticker string) (*CoinbaseBookResponse, error) {
 	}
 
 	if res.StatusCode == 200 {
-		log.Printf("Status: %s\n", res.Status)
+		log.Printf("Status: %s for ticker: %s", res.Status, ticker)
 	} else {
-		fmt.Println(res.Status)
-		fmt.Println(res)
+		log.Printf("Status: %s for ticker: %s", res.Status, ticker)
+		log.Println(res)
 		return nil, fmt.Errorf("Bad status: %s", res.Status)
 	}
 
