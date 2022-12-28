@@ -7,14 +7,6 @@ import (
 	"testing"
 )
 
-// PTRequestBody payload for request to /v2/quotes API
-type PTRequestBodyTest struct {
-	Data struct {
-		Type       string            `json:"type"`
-		Attributes QuoteRequestAttrs `json:"attributes"`
-	} `json:"data"`
-}
-
 // QRData ... original struct used before upgrade above
 type QRData struct {
 	Type       string            `json:"type"`
@@ -23,15 +15,15 @@ type QRData struct {
 
 func TestPTRequestBody(t *testing.T) {
 
-	var reqdata = PTRequestBodyTest{}
+	var reqdata = PTQuotesRequestBody{}
 	reqdata.Data.Type = "quotes"
 	reqdata.Data.Attributes = QuoteRequestAttrs{
-		AccountID:         "0c7715e3-7cdd-4d49-88bb-f1ab3cb8803b",
-		AssetID:           "43454116-7026-4b3d-a9de-eeaada500d4c",
+		AccountID:         account,
+		AssetID:           assets["BTC"],
 		TransactionType:   "sell",
 		UnitCount:         1.0,
 		Hot:               false,
-		TradeDeskID:       "4c248890-703d-4ac3-9ce7-9de6465f328a",
+		TradeDeskID:       tradeDesk["Enigma"],
 		DelayedSettlement: true,
 	}
 
@@ -39,12 +31,12 @@ func TestPTRequestBody(t *testing.T) {
 		QRData{
 			Type: "quotes",
 			Attributes: QuoteRequestAttrs{
-				AccountID:         "0c7715e3-7cdd-4d49-88bb-f1ab3cb8803b",
-				AssetID:           "43454116-7026-4b3d-a9de-eeaada500d4c",
+				AccountID:         account,
+				AssetID:           assets["BTC"],
 				TransactionType:   "sell",
 				UnitCount:         1.0,
 				Hot:               false,
-				TradeDeskID:       "4c248890-703d-4ac3-9ce7-9de6465f328a",
+				TradeDeskID:       tradeDesk["Enigma"],
 				DelayedSettlement: true,
 			},
 		},
@@ -71,12 +63,12 @@ func TestPrepareQuoteRequest(t *testing.T) {
 		QRData{
 			Type: "quotes",
 			Attributes: QuoteRequestAttrs{
-				AccountID:         "0c7715e3-7cdd-4d49-88bb-f1ab3cb8803b",
-				AssetID:           "43454116-7026-4b3d-a9de-eeaada500d4c",
+				AccountID:         account,
+				AssetID:           assets["BTC"],
 				Hot:               false,
 				TransactionType:   "sell",
 				UnitCount:         1.0,
-				TradeDeskID:       "4c248890-703d-4ac3-9ce7-9de6465f328a",
+				TradeDeskID:       tradeDesk["Enigma"],
 				DelayedSettlement: true,
 			},
 		},

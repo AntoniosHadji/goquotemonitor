@@ -12,6 +12,23 @@ import (
 
 var p string
 
+var tradeDesk = map[string]string{
+	"DV":     "2fafbc29-d5a1-4a68-a8c6-cf93b043ad1b",
+	"Enigma": "4c248890-703d-4ac3-9ce7-9de6465f328a",
+}
+
+var assets = map[string]string{
+	"AVAX": "883a179b-91df-4b42-a31f-02b6c9736537",
+	"BTC":  "43454116-7026-4b3d-a9de-eeaada500d4c",
+	"ETH":  "efd4e846-99ec-4362-b21f-7982529bf570",
+	"LTC":  "b2a5a8e2-d9d5-4854-8517-5a5608ffbe7d",
+	"SOL":  "086d6588-6dec-4807-97c2-82e97ef6ff10",
+	"USDC": "70c21c75-9362-4182-a984-daa63e30ee52",
+	"USDT": "25311c35-26d0-4cf1-b916-80f377a7e468",
+}
+
+var account = "0c7715e3-7cdd-4d49-88bb-f1ab3cb8803b"
+
 func init() {
 	val, ok := os.LookupEnv("TOKEN")
 	if ok {
