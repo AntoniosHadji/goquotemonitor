@@ -5,14 +5,13 @@ WORKDIR /app
 
 COPY go.mod .
 COPY go.sum .
-RUN go mod download
-
 COPY *.go ./
+RUN go mod download
 
 RUN go build -o goquotemonitor .
 
 ## Deploy
-# env vars are missing need DATABASE_URL and TOKEN
+# env vars are not included. need DATABASE_URL and TOKEN
 # run with --env-file ./env to include env vars in runtime
 
 FROM ubuntu:latest
