@@ -31,6 +31,7 @@ func getBook(ticker string) (*CoinbaseBookResponse, error) {
 		log.Println(err)
 		return nil, err
 	}
+	defer res.Body.Close()
 
 	var r CoinbaseBookResponse
 	if err = json.NewDecoder(res.Body).Decode(&r); err != nil {

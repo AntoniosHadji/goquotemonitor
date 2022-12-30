@@ -113,6 +113,7 @@ func ptQuoteRequest(payload *PTQuotesRequestBody) (*QuoteResponse, error) {
 		log.Println(err)
 		return nil, err
 	}
+	defer res.Body.Close()
 
 	var r QuoteResponse
 	if err = json.NewDecoder(res.Body).Decode(&r); err != nil {
