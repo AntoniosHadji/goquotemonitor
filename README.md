@@ -36,8 +36,8 @@ Create database using `setup/primetrust.sql`
 Start executable
 
 
-Via Docker (assuming docker image is named `quotes:ubuntu`):  
-`docker run -it --env-file ./setup/env quotes:ubuntu`
+Via Docker:  
+`docker run -d --env-file ./setup/env ghcr.io/primetrust/goquotemonitor:latest`
 
 File format for env-file is list of VAR/VALUE pairs:
 
