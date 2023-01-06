@@ -22,6 +22,8 @@ TODO:
 [ ] Create mechanism to shutdown goroutines instead of just CTRL-C to exit.  
 [ ] Remove other hard coded configuration  
     - account-id
+    - trade desk ids
+    * asset ids
 
 To run:
 -------
@@ -31,8 +33,8 @@ Requires ENV vars for:
 * DATABASE_URL
 * TOKEN
 
-Create database using `setup/primetrust.sql`
-
+Create database using `./setup/sql/primetrust.sql`
+Populate work table with data from `./setup/sql/work.data.sql`
 Start executable
 
 
@@ -55,6 +57,7 @@ CTRL-C
 History:
 --------
 
+* 2023-01-06 added data from work table
 * 2022-12-16 Added Coinbase worker
 * 2022-12-20 No time delay between initial requests + refactor updates
 * 2022-12-21 Data for quote parameters comes from table maintained in DB
