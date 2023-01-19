@@ -46,28 +46,29 @@ var version = "v2"
 // QuoteResponse struct to store response from /v2/quotes API
 type QuoteResponse struct {
 	Data struct {
-		ID         string `json:"id"`
-		Type       string `json:"type"`
+		ID         string `json:"id,omitempty"`
+		Type       string `json:"type,omitempty"`
 		Attributes struct {
-			AssetName         string    `json:"asset-name"`
-			BaseAmount        float64   `json:"base-amount"`
-			CreatedAt         time.Time `json:"created-at"`
-			DelayedSettlement bool      `json:"delayed-settlement"`
-			ExecutedAt        time.Time `json:"executed-at"`
-			ExpiresAt         time.Time `json:"expires-at"`
-			FeeAmount         float64   `json:"fee-amount"`
-			Hot               bool      `json:"hot"`
-			TradeID           string    `json:"trade-id"`
-			IntegratorSettled bool      `json:"integrator-settled"`
-			PricePerUnit      float64   `json:"price-per-unit"`
-			RejectedAt        time.Time `json:"rejected-at"`
-			SettledAt         time.Time `json:"settled-at"`
-			Status            string    `json:"status"`
-			TotalAmount       float64   `json:"total-amount"`
-			TransactionType   string    `json:"transaction-type"`
-			UnitCount         float64   `json:"unit-count"`
-		} `json:"attributes"`
+			AssetName         string    `json:"asset-name,omitempty"`
+			BaseAmount        float64   `json:"base-amount,omitempty"`
+			CreatedAt         time.Time `json:"created-at,omitempty"`
+			DelayedSettlement bool      `json:"delayed-settlement,omitempty"`
+			ExecutedAt        time.Time `json:"executed-at,omitempty"`
+			ExpiresAt         time.Time `json:"expires-at,omitempty"`
+			FeeAmount         float64   `json:"fee-amount,omitempty"`
+			Hot               bool      `json:"hot,omitempty"`
+			TradeID           string    `json:"trade-id,omitempty"`
+			IntegratorSettled bool      `json:"integrator-settled,omitempty"`
+			PricePerUnit      float64   `json:"price-per-unit,omitempty"`
+			RejectedAt        time.Time `json:"rejected-at,omitempty"`
+			SettledAt         time.Time `json:"settled-at,omitempty"`
+			Status            string    `json:"status,omitempty"`
+			TotalAmount       float64   `json:"total-amount,omitempty"`
+			TransactionType   string    `json:"transaction-type,omitempty"`
+			UnitCount         float64   `json:"unit-count,omitempty"`
+		} `json:"attributes,omitempty"`
 	} `json:"data,omitempty"`
+	Errors []map[string]interface{} `json:"errors,omitempty"`
 }
 
 // PTQuotesRequestBody payload for request to /v2/quotes API
@@ -120,6 +121,7 @@ func ptQuoteRequest(payload *PTQuotesRequestBody) (*QuoteResponse, error) {
 		log.Println(err)
 		return nil, err
 	}
+
 	if res.StatusCode == 201 {
 		log.Printf(
 			"Status: %s for %f %s\n",
@@ -129,7 +131,6 @@ func ptQuoteRequest(payload *PTQuotesRequestBody) (*QuoteResponse, error) {
 		)
 	} else {
 		fmt.Println(res.Status)
-		fmt.Println(res)
 		fmt.Printf("%#v\n", r)
 		return nil, fmt.Errorf("Bad status: %s\n%#v", res.Status, r)
 	}
