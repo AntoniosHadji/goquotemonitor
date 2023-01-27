@@ -131,8 +131,8 @@ func ptQuoteRequest(payload *PTQuotesRequestBody) (*QuoteResponse, error) {
 		)
 	} else {
 		fmt.Println(res.Status)
-		fmt.Printf("%#v\n", r)
-		return nil, fmt.Errorf("Bad status: %s\n%#v", res.Status, r)
+		fmt.Printf("%#v\n", r.Errors)
+		return nil, fmt.Errorf("Bad status: %s\n%#v", res.Status, r.Errors)
 	}
 
 	return &r, nil
