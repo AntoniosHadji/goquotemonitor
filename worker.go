@@ -7,14 +7,12 @@ import (
 )
 
 func dowork(w Work) {
-	bidreq := PTQuotesRequestBody{}
+	bidreq := QuoteRequest{}
 	bidreq.Data.Type = "quotes"
-	bidreq.Data.Attributes = QuoteRequestAttrs{
-		AccountID:       account,
-		AssetID:         assets[w.ticker],
-		TransactionType: "sell",
-		UnitCount:       w.size,
-	}
+	bidreq.Data.Attributes.AccountID = account
+	bidreq.Data.Attributes.AssetID = assets[w.ticker]
+	bidreq.Data.Attributes.TransactionType = "sell"
+	bidreq.Data.Attributes.UnitCount = w.size
 	if w.lp == "Enigma" {
 		bidreq.Data.Attributes.DelayedSettlement = true
 		bidreq.Data.Attributes.TradeDeskID = tradeDesk["Enigma"]

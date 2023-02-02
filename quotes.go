@@ -71,28 +71,25 @@ type QuoteResponse struct {
 	Errors []map[string]interface{} `json:"errors,omitempty"`
 }
 
-// PTQuotesRequestBody payload for request to /v2/quotes API
-type PTQuotesRequestBody struct {
+// QuoteRequest payload for request to /v2/quotes API
+type QuoteRequest struct {
 	Data struct {
-		Type       string            `json:"type"`
-		Attributes QuoteRequestAttrs `json:"attributes"`
+		Type       string `json:"type"`
+		Attributes struct {
+			AccountID         string  `json:"account-id"`
+			AssetID           string  `json:"asset-id"`
+			TransactionType   string  `json:"transaction-type"`
+			UnitCount         float64 `json:"unit-count"`
+			Hot               bool    `json:"hot,omitempty"`
+			DelayedSettlement bool    `json:"delayed-settlement,omitempty"`
+			TradeDeskID       string  `json:"trade-desk-id,omitempty"`
+		} `json:"attributes"`
 	} `json:"data"`
-}
-
-// QuoteRequestAttrs is attributes for Quote request
-type QuoteRequestAttrs struct {
-	AccountID         string  `json:"account-id"`
-	AssetID           string  `json:"asset-id"`
-	TransactionType   string  `json:"transaction-type"`
-	UnitCount         float64 `json:"unit-count"`
-	Hot               bool    `json:"hot,omitempty"`
-	DelayedSettlement bool    `json:"delayed-settlement,omitempty"`
-	TradeDeskID       string  `json:"trade-desk-id,omitempty"`
 }
 
 // ====================================================================
 
-func ptQuoteRequest(payload *PTQuotesRequestBody) (*QuoteResponse, error) {
+func ptQuoteRequest(payload *QuoteRequest) (*QuoteResponse, error) {
 	pb, err := json.Marshal(payload)
 	if err != nil {
 		log.Println(err)

@@ -1,78 +1,51 @@
 package main
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"testing"
 )
 
-// QRData ... original struct used before upgrade above
-type QRData struct {
-	Type       string            `json:"type"`
-	Attributes QuoteRequestAttrs `json:"attributes"`
-}
-
 func TestPTRequestBody(t *testing.T) {
 
-	var reqdata = PTQuotesRequestBody{}
+	var reqdata = QuoteRequest{}
 	reqdata.Data.Type = "quotes"
-	reqdata.Data.Attributes = QuoteRequestAttrs{
-		AccountID:         account,
-		AssetID:           assets["BTC"],
-		TransactionType:   "sell",
-		UnitCount:         1.0,
-		Hot:               false,
-		TradeDeskID:       tradeDesk["Enigma"],
-		DelayedSettlement: true,
-	}
-
-	var reqdataOrig = PTQuotesRequestBody{
-		QRData{
-			Type: "quotes",
-			Attributes: QuoteRequestAttrs{
-				AccountID:         account,
-				AssetID:           assets["BTC"],
-				TransactionType:   "sell",
-				UnitCount:         1.0,
-				Hot:               false,
-				TradeDeskID:       tradeDesk["Enigma"],
-				DelayedSettlement: true,
-			},
-		},
-	}
+	reqdata.Data.Attributes.AccountID = account
+	reqdata.Data.Attributes.AssetID = assets["BTC"]
+	reqdata.Data.Attributes.TransactionType = "sell"
+	reqdata.Data.Attributes.UnitCount = 1.0
+	reqdata.Data.Attributes.Hot = false
+	reqdata.Data.Attributes.TradeDeskID = tradeDesk["Enigma"]
+	reqdata.Data.Attributes.DelayedSettlement = true
 
 	pb, err := json.Marshal(reqdata)
 	if err != nil {
 		t.Error(err)
 	}
-	pb2, err := json.Marshal(reqdataOrig)
-	if err != nil {
-		t.Error(err)
-	}
+	fmt.Println(pb)
 
-	if bytes.Compare(pb, pb2) != 0 {
-		fmt.Println(pb)
-		fmt.Println(pb2)
-	}
+	// pb2, err := json.Marshal(reqdataOrig)
+	// if err != nil {
+	// 	t.Error(err)
+	// }
+
+	// if bytes.Compare(pb, pb2) != 0 {
+	// 	fmt.Println(pb)
+	// 	fmt.Println(pb2)
+	// }
 }
 
 func TestPrepareQuoteRequest(t *testing.T) {
 
-	var reqdata = PTQuotesRequestBody{
-		QRData{
-			Type: "quotes",
-			Attributes: QuoteRequestAttrs{
-				AccountID:         account,
-				AssetID:           assets["BTC"],
-				Hot:               false,
-				TransactionType:   "sell",
-				UnitCount:         1.0,
-				TradeDeskID:       tradeDesk["Enigma"],
-				DelayedSettlement: true,
-			},
-		},
-	}
+	var reqdata = QuoteRequest{}
+	reqdata.Data.Type = "quotes"
+	reqdata.Data.Attributes.AccountID = account
+	reqdata.Data.Attributes.AssetID = assets["BTC"]
+	reqdata.Data.Attributes.TransactionType = "sell"
+	reqdata.Data.Attributes.UnitCount = 1.0
+	reqdata.Data.Attributes.Hot = false
+	reqdata.Data.Attributes.TradeDeskID = tradeDesk["Enigma"]
+	reqdata.Data.Attributes.DelayedSettlement = true
 
 	var reqdata2 = reqdata
 	reqdata2.Data.Attributes.TransactionType = "buy"
