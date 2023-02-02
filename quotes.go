@@ -68,7 +68,17 @@ type QuoteResponse struct {
 			UnitCount         float64   `json:"unit-count,omitempty"`
 		} `json:"attributes,omitempty"`
 	} `json:"data,omitempty"`
-	Errors []map[string]interface{} `json:"errors,omitempty"`
+	Errors Errors `json:"errors,omitempty"`
+}
+
+// Errors API Error response
+type Errors []struct {
+	Status int    `json:"status,omitempty"`
+	Title  string `json:"title,omitempty"`
+	Source struct {
+		Pointer string `json:"pointer,omitempty"`
+	} `json:"source,omitempty"`
+	Detail string `json:"detail,omitempty"`
 }
 
 // QuoteRequest payload for request to /v2/quotes API
