@@ -102,7 +102,7 @@ type QuoteRequest struct {
 func ptQuoteRequest(payload *QuoteRequest) (*QuoteResponse, error) {
 	pb, err := json.Marshal(payload)
 	if err != nil {
-		log.Println(err)
+		return nil, err
 	}
 
 	body := bytes.NewBuffer(pb)
@@ -110,7 +110,6 @@ func ptQuoteRequest(payload *QuoteRequest) (*QuoteResponse, error) {
 	path := fmt.Sprintf("%s/%s/quotes", ptBaseURL, version)
 	req, err := http.NewRequest("POST", path, body)
 	if err != nil {
-		log.Println(err)
 		return nil, err
 	}
 	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", string(p)))
@@ -118,14 +117,12 @@ func ptQuoteRequest(payload *QuoteRequest) (*QuoteResponse, error) {
 
 	res, err := client.Do(req)
 	if err != nil {
-		log.Println(err)
 		return nil, err
 	}
 	defer res.Body.Close()
 
 	var r QuoteResponse
 	if err = json.NewDecoder(res.Body).Decode(&r); err != nil {
-		log.Println(err)
 		return nil, err
 	}
 
@@ -137,8 +134,6 @@ func ptQuoteRequest(payload *QuoteRequest) (*QuoteResponse, error) {
 			r.Data.Attributes.AssetName,
 		)
 	} else {
-		fmt.Println(res.Status)
-		fmt.Printf("%#v\n", r.Errors)
 		return nil, fmt.Errorf("Bad status: %s\n%#v", res.Status, r.Errors)
 	}
 
