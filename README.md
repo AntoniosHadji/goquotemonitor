@@ -18,13 +18,16 @@ using https://cloud.primetrust.com/accounts/0c7715e3-7cdd-4d49-88bb-f1ab3cb8803b
 
 TODO:  
 
-[ ] Create mechanism to shutdown goroutines instead of just CTRL-C to exit.  
+[ ] Monitor asset balance in hot and warm  
+[ ] Intelligently switch between hot and warm quotes as needed  
 [ ] Add http server for UI to manage config data  
+[ ] Create mechanism to shutdown goroutines instead of just CTRL-C to exit.  
 [X] Current quote parameters are hard coded into the executable.  
 [X] Remove other hard coded configuration  
-    - account-id
-    - trade desk ids
-    * asset ids
+
+    - account-id  
+    - trade desk ids  
+    * asset ids  
 
 To run:
 -------

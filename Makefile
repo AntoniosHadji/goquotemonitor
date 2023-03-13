@@ -1,14 +1,15 @@
-build:
-	docker build -t quotes:ubuntu .
-
-run:
-	docker run -it --env-file ./setup/env quotes:ubuntu
-
+start:
+	docker run --name quotemonitor \
+		--env-file ./setup/env \
+		--restart unless-stopped \
+		-p 8080:8080 \
+		-d ghcr.io/primetrust/goquotemonitor
 
 postgres:
 	docker run --name postgres15-server \
 		--mount type=volume,src=data-postgres15,dst=/var/lib/postgresql/data \
 		--mount type=volume,src=home,dst=/root \
+		--restart unless-stopped \
 		-e POSTGRES_USER=postgres \
 		-e POSTGRES_PASSWORD=password \
 		-p 5432:5432 \
@@ -19,8 +20,5 @@ grafana:
 		-p 3000:3000 \
 		-d grafana/grafana
 
-start:
-	docker run --name quotemonitor \
-		--env-file ./setup/env \
-		-p 8080:8080 \
-		-d quotes:ubuntu
+build-local:
+	docker build -t quotes:ubuntu .
