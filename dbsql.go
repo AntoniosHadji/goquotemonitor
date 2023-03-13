@@ -13,6 +13,30 @@ import (
 var db *sql.DB
 var stmt *sql.Stmt
 
+// Work struct containing details of each quote pair
+type Work struct {
+	lp     string
+	ticker string
+	size   float64
+}
+
+// WorkList - list of work to do
+var WorkList []Work
+
+// Config - configuration data for application
+type Config struct {
+	datatype string
+	key      string
+	value    string
+}
+
+// ConfigList - array of data from config db table
+var ConfigList []Config
+
+var tradeDesk = make(map[string]string)
+var assets = make(map[string]string)
+var account string
+
 // InsertRow struct to hold data from calculations
 type InsertRow struct {
 	ts     time.Time
@@ -55,6 +79,12 @@ func init() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	ConfigList, err = getConfig()
+	if err != nil {
+		log.Fatal(err)
+	}
+	processConfig()
 }
 
 func insertData(d InsertRow) (sql.Result, error) {
@@ -88,4 +118,42 @@ func getWork() ([]Work, error) {
 		return nil, fmt.Errorf("%v", err)
 	}
 	return worklist, nil
+}
+
+func getConfig() ([]Config, error) {
+	var cfglist []Config
+
+	rows, err := db.Query("SELECT * FROM config order by data_type, key")
+	if err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+	defer rows.Close()
+	// Loop through rows, using Scan to assign column data to struct fields.
+	for rows.Next() {
+		var c Config
+		if err := rows.Scan(&c.datatype, &c.key, &c.value); err != nil {
+			return nil, fmt.Errorf("%v", err)
+		}
+		cfglist = append(cfglist, c)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("%v", err)
+	}
+	return cfglist, nil
+}
+
+func processConfig() {
+	for i, c := range ConfigList {
+		log.Printf("%02d: %#v", i, c)
+		switch c.datatype {
+		case "account":
+			account = c.value
+		case "assets":
+			assets[c.key] = c.value
+		case "tradeDesk":
+			assets[c.key] = c.value
+		default:
+			log.Printf("[WARNING] Not implemented config data type: %s\n", c.datatype)
+		}
+	}
 }

@@ -6,7 +6,7 @@ Monitoring spread width in bps for various tokens and trade sizes.
 Consists of:
 * Custom Go code requests quotes and inserts data to DB
 * Postgres DB running in docker container
-* Grafana front end for charting data (also running in docker)
+* Grafana front end for charting data (currently using free cloud grafana)
 
 Dockerfile for containerizing executable so that all pieces can run via Docker
 
@@ -18,9 +18,10 @@ using https://cloud.primetrust.com/accounts/0c7715e3-7cdd-4d49-88bb-f1ab3cb8803b
 
 TODO:  
 
-[X] Current quote parameters are hard coded into the executable.  
 [ ] Create mechanism to shutdown goroutines instead of just CTRL-C to exit.  
-[ ] Remove other hard coded configuration  
+[ ] Add http server for UI to manage config data  
+[X] Current quote parameters are hard coded into the executable.  
+[X] Remove other hard coded configuration  
     - account-id
     - trade desk ids
     * asset ids
