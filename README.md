@@ -22,6 +22,7 @@ TODO:
 [ ] Intelligently switch between hot and warm quotes as needed  
 [ ] Add http server for UI to manage config data  
 [ ] Create mechanism to shutdown goroutines instead of just CTRL-C to exit.  
+[ ] Clean up tests to work with data in config table  
 [X] Current quote parameters are hard coded into the executable.  
 [X] Remove other hard coded configuration  
 
