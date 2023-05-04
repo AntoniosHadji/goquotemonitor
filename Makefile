@@ -22,3 +22,6 @@ grafana:
 
 build-local:
 	docker build -t quotes:ubuntu .
+
+show-errors:
+	docker logs quotemonitor 2>&1 | rg Error
