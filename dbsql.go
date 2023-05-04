@@ -85,6 +85,7 @@ func init() {
 		log.Fatal(err)
 	}
 	processConfig()
+
 }
 
 func insertData(d InsertRow) (sql.Result, error) {
@@ -151,9 +152,19 @@ func processConfig() {
 		case "assets":
 			assets[c.key] = c.value
 		case "tradeDesk":
-			assets[c.key] = c.value
+			tradeDesk[c.key] = c.value
 		default:
 			log.Printf("[WARNING] Not implemented config data type: %s\n", c.datatype)
 		}
 	}
+
+	log.Println("Configured trade desks:")
+	for k, v := range tradeDesk {
+		log.Printf("%6s: %s", k, v)
+	}
+	log.Println("Configured assets:")
+	for k, v := range assets {
+		log.Printf("%4s: %s", k, v)
+	}
+
 }
