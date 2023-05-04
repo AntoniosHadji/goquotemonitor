@@ -117,7 +117,12 @@ func ptQuoteRequest(payload *QuoteRequest) (*QuoteResponse, error) {
 			r.Data.Attributes.AssetName,
 		)
 	} else {
-		return nil, fmt.Errorf("Bad status: %s\n%#v", res.Status, r.Errors)
+		return nil, fmt.Errorf(
+			"Error status: %s asset: %s tradedesk: %s\n%#v",
+			res.Status,
+			payload.Data.Attributes.AssetID,
+			payload.Data.Attributes.TradeDeskID,
+			r.Errors[0].Detail)
 	}
 
 	return &r, nil
