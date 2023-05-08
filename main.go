@@ -23,7 +23,7 @@ func main() {
 			defer mainwg.Done()
 
 			if w.lp == "Coinbase" {
-				cbwork(w.ticker, w.size)
+				cbwork(w)
 			} else {
 				dowork(w)
 			}

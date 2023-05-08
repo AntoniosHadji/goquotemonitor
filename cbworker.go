@@ -5,24 +5,24 @@ import (
 	"time"
 )
 
-func cbwork(ticker string, size float64) {
+func cbwork(w Work) {
 	for {
-		response, err := getBook(ticker)
+		response, err := getBook(w.ticker)
 		if err != nil {
 			log.Printf("Error: %v", err)
 			time.Sleep(3 * time.Second)
 			continue
 		}
 
-		bid, ask, bps := calcSpread(response, size)
+		bid, ask, bps := calcSpread(response, w.size)
 
 		data := InsertRow{
 			time.Now().UTC(),
 			bid,
 			ask,
-			size,
+			w.size,
 			bps,
-			ticker,
+			w.ticker,
 			"Coinbase",
 		}
 		result, err := insertData(data)
@@ -30,7 +30,7 @@ func cbwork(ticker string, size float64) {
 			log.Println(err)
 		}
 		ra, _ := result.RowsAffected()
-		log.Printf("Inserted %d row for LP: %s ticker: %s size: %f.\n", ra, "Coinbase", ticker, size)
+		log.Printf("Inserted %d row for LP: %s ticker: %s size: %f.\n", ra, "Coinbase", w.ticker, w.size)
 
 		time.Sleep(60 * time.Second)
 	}
