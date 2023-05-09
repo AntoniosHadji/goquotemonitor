@@ -15,9 +15,9 @@ var stmt *sql.Stmt
 
 // Work struct containing details of each quote pair
 type Work struct {
-	lp     string
-	ticker string
-	size   float64
+	LP     string
+	Ticker string
+	Size   float64
 }
 
 // WorkList - list of work to do
@@ -25,9 +25,9 @@ var WorkList []Work
 
 // Config - configuration data for application
 type Config struct {
-	datatype string
-	key      string
-	value    string
+	Datatype string
+	Key      string
+	Value    string
 }
 
 // ConfigList - array of data from config db table
@@ -110,7 +110,7 @@ func getWork() ([]Work, error) {
 	// Loop through rows, using Scan to assign column data to struct fields.
 	for rows.Next() {
 		var w Work
-		if err := rows.Scan(&w.lp, &w.ticker, &w.size); err != nil {
+		if err := rows.Scan(&w.LP, &w.Ticker, &w.Size); err != nil {
 			return nil, fmt.Errorf("%v", err)
 		}
 		worklist = append(worklist, w)
@@ -132,7 +132,7 @@ func getConfig() ([]Config, error) {
 	// Loop through rows, using Scan to assign column data to struct fields.
 	for rows.Next() {
 		var c Config
-		if err := rows.Scan(&c.datatype, &c.key, &c.value); err != nil {
+		if err := rows.Scan(&c.Datatype, &c.Key, &c.Value); err != nil {
 			return nil, fmt.Errorf("%v", err)
 		}
 		cfglist = append(cfglist, c)
@@ -146,15 +146,15 @@ func getConfig() ([]Config, error) {
 func processConfig() {
 	for i, c := range ConfigList {
 		log.Printf("%02d: %#v", i, c)
-		switch c.datatype {
+		switch c.Datatype {
 		case "account":
-			account = c.value
+			account = c.Value
 		case "assets":
-			assets[c.key] = c.value
+			assets[c.Key] = c.Value
 		case "tradeDesk":
-			tradeDesk[c.key] = c.value
+			tradeDesk[c.Key] = c.Value
 		default:
-			log.Printf("[WARNING] Not implemented config data type: %s\n", c.datatype)
+			log.Printf("[WARNING] Not implemented config data type: %s\n", c.Datatype)
 		}
 	}
 

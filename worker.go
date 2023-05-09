@@ -10,10 +10,10 @@ func dowork(w Work) {
 	bidreq := QuoteRequest{}
 	bidreq.Data.Type = "quotes"
 	bidreq.Data.Attributes.AccountID = account
-	bidreq.Data.Attributes.AssetID = assets[w.ticker]
+	bidreq.Data.Attributes.AssetID = assets[w.Ticker]
 	bidreq.Data.Attributes.TransactionType = "sell"
-	bidreq.Data.Attributes.UnitCount = w.size
-	if w.lp == "Enigma" {
+	bidreq.Data.Attributes.UnitCount = w.Size
+	if w.LP == "Enigma" {
 		bidreq.Data.Attributes.DelayedSettlement = true
 		bidreq.Data.Attributes.TradeDeskID = tradeDesk["Enigma"]
 	}
@@ -76,17 +76,17 @@ func dowork(w Work) {
 			response1.Data.Attributes.CreatedAt,
 			bid,
 			ask,
-			w.size,
+			w.Size,
 			bps,
-			w.ticker,
-			w.lp,
+			w.Ticker,
+			w.LP,
 		}
 		result, err := insertData(data)
 		if err != nil {
 			log.Println(err)
 		}
 		ra, _ := result.RowsAffected()
-		log.Printf("Inserted %d row for LP: %s ticker: %s size: %f.\n", ra, w.lp, w.ticker, w.size)
+		log.Printf("Inserted %d row for LP: %s Ticker: %s Size: %f.\n", ra, w.LP, w.Ticker, w.Size)
 		time.Sleep(time.Duration(delay) * time.Second)
 	}
 }

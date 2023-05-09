@@ -22,7 +22,7 @@ func main() {
 			mainwg.Add(1)
 			defer mainwg.Done()
 
-			if w.lp == "Coinbase" {
+			if w.LP == "Coinbase" {
 				cbwork(w)
 			} else {
 				dowork(w)
