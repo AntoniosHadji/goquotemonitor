@@ -6,6 +6,7 @@ WORKDIR /app
 COPY go.mod .
 COPY go.sum .
 COPY *.go ./
+COPY templates/ templates/
 RUN go mod download
 
 RUN go build -o goquotemonitor .
@@ -25,7 +26,7 @@ WORKDIR /app
 
 COPY --from=build /app/goquotemonitor .
 
-# TODO: for future web server
+# web server UI
 EXPOSE 8080
 
 CMD ["./goquotemonitor"]
