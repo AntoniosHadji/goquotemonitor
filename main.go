@@ -1,9 +1,12 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"sync"
 )
+
+var port = flag.String("port", "8080", "Port to listen on for web ui.")
 
 func init() {
 	// https://pkg.go.dev/log#pkg-constants
@@ -11,6 +14,7 @@ func init() {
 }
 
 func main() {
+	flag.Parse()
 	defer db.Close()
 	defer stmt.Close() // Prepared statements take up server resources and should be closed after use.
 
@@ -30,6 +34,8 @@ func main() {
 
 		}(w)
 	}
+
+	go webui(*port)
 
 	// TODO: add mechanism for stopping go routines
 	log.Println("Waiting for Main WaitGroup.")

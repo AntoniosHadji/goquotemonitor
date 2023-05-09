@@ -1,0 +1,34 @@
+{{ define "work" }}
+{{ template "header" }}
+<div class="container">
+
+  <h1>Work</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <!-- heavy checkmark https://www.compart.com/en/unicode/U+2714 -->
+        <th scope="col">&#10004;</th>
+        <th scope="col">LP</th>
+        <th scope="col">Ticker</th>
+        <th scope="col">Size</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range . }}
+      <tr>
+        <th scope="row">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="selectrow">
+          </div>
+        </th>
+        <td>{{ .LP }}</td>
+        <td>{{ .Ticker }}</td>
+        <td>{{ .Size }}</td>
+      </tr>
+      {{ end }}
+    </tbody>
+  </table>
+
+</div>
+{{ template "footer" }}
+{{ end }}
