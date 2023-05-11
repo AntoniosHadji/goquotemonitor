@@ -18,17 +18,11 @@ using https://cloud.primetrust.com/accounts/0c7715e3-7cdd-4d49-88bb-f1ab3cb8803b
 
 TODO:  
 
+[*] Add http server for UI to manage config data  (Work in Progress)
+[ ] Clean up tests to work with data in config table  
 [ ] Monitor asset balance in hot and warm  
 [ ] Intelligently switch between hot and warm quotes as needed  
-[ ] Add http server for UI to manage config data  
 [ ] Create mechanism to shutdown goroutines instead of just CTRL-C to exit.  
-[ ] Clean up tests to work with data in config table  
-[X] Current quote parameters are hard coded into the executable.  
-[X] Remove other hard coded configuration  
-
-    - account-id  
-    - trade desk ids  
-    * asset ids  
 
 To run:
 -------
@@ -62,6 +56,7 @@ CTRL-C
 History:
 --------
 
+* 2023-05-10 Added work in progress web UI
 * 2023-01-06 added data from work table
 * 2022-12-16 Added Coinbase worker
 * 2022-12-20 No time delay between initial requests + refactor updates
