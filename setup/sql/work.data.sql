@@ -31,7 +31,9 @@ DV	LTC	1.000
 DV	AVAX	10.000
 DV	SOL	10.000
 DV	USDC	100.000
+Enigma	USDC	100.000
 DV	USDT	100.000
+Enigma	USDT	100.000
 Coinbase	BTC	1.000
 Coinbase	ETH	1.000
 \.
@@ -40,4 +42,4 @@ Coinbase	ETH	1.000
 --
 -- PostgreSQL database dump complete
 --
-
+-- added USDC USDT Enigma manually 05/24/23
