@@ -4,6 +4,7 @@ import (
 	"flag"
 	"log"
 	"sync"
+	"time"
 )
 
 var port = flag.String("port", "8080", "Port to listen on for web ui.")
@@ -33,8 +34,11 @@ func main() {
 			}
 
 		}(w)
+		// separate quotes to reduce load
+		time.Sleep(1 * time.Second)
 	}
 
+	// TODO: work in progress - display config settings and edit
 	go webui(*port)
 
 	// TODO: add mechanism for stopping go routines
