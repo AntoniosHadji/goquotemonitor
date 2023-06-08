@@ -5,7 +5,7 @@ name: ci
 on:
   push:
     branches: [main]
-    paths: ['**.go', go.*, Dockerfile, templates/*]
+    paths: ['**.go', go.*, Dockerfile, templates/*, '!*_test.go']
 
 jobs:
   docker:
