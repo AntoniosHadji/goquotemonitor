@@ -15,6 +15,7 @@ var stmt *sql.Stmt
 
 // Work struct containing details of each quote pair
 type Work struct {
+	ID     int
 	LP     string
 	Ticker string
 	Size   float64
@@ -25,6 +26,7 @@ var WorkList []Work
 
 // Config - configuration data for application
 type Config struct {
+	ID       int
 	Datatype string
 	Key      string
 	Value    string
@@ -110,7 +112,7 @@ func getWork() ([]Work, error) {
 	// Loop through rows, using Scan to assign column data to struct fields.
 	for rows.Next() {
 		var w Work
-		if err := rows.Scan(&w.LP, &w.Ticker, &w.Size); err != nil {
+		if err := rows.Scan(&w.LP, &w.Ticker, &w.Size, &w.ID); err != nil {
 			return nil, fmt.Errorf("%v", err)
 		}
 		worklist = append(worklist, w)
@@ -132,7 +134,7 @@ func getConfig() ([]Config, error) {
 	// Loop through rows, using Scan to assign column data to struct fields.
 	for rows.Next() {
 		var c Config
-		if err := rows.Scan(&c.Datatype, &c.Key, &c.Value); err != nil {
+		if err := rows.Scan(&c.Datatype, &c.Key, &c.Value, &c.ID); err != nil {
 			return nil, fmt.Errorf("%v", err)
 		}
 		cfglist = append(cfglist, c)

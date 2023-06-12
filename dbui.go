@@ -41,7 +41,7 @@ func webui(port string) {
 
 func work(w http.ResponseWriter, r *http.Request) {
 	// Prepare the query
-	rows, err := db.Query("SELECT lp, ticker, size FROM work")
+	rows, err := db.Query("SELECT lp, ticker, size , id FROM work")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -51,7 +51,7 @@ func work(w http.ResponseWriter, r *http.Request) {
 	var workitems []Work
 	for rows.Next() {
 		var work Work
-		err := rows.Scan(&work.LP, &work.Ticker, &work.Size)
+		err := rows.Scan(&work.LP, &work.Ticker, &work.Size, &work.ID)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -68,7 +68,7 @@ func work(w http.ResponseWriter, r *http.Request) {
 
 func config(w http.ResponseWriter, r *http.Request) {
 	// Prepare the query
-	rows, err := db.Query("SELECT data_type, key, value FROM config")
+	rows, err := db.Query("SELECT data_type, key, value, id FROM config")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -78,7 +78,7 @@ func config(w http.ResponseWriter, r *http.Request) {
 	var configs []Config
 	for rows.Next() {
 		var config Config
-		err := rows.Scan(&config.Datatype, &config.Key, &config.Value)
+		err := rows.Scan(&config.Datatype, &config.Key, &config.Value, &config.ID)
 		if err != nil {
 			log.Fatal(err)
 		}

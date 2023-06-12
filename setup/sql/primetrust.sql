@@ -43,6 +43,42 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: config; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.config (
+    data_type character varying(10),
+    key character varying(10),
+    value character varying(36),
+    id smallint NOT NULL
+);
+
+
+ALTER TABLE public.config OWNER TO postgres;
+
+--
+-- Name: config_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.config_id_seq
+    AS smallint
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.config_id_seq OWNER TO postgres;
+
+--
+-- Name: config_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.config_id_seq OWNED BY public.config.id;
+
+
+--
 -- Name: spreads; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -66,11 +102,48 @@ ALTER TABLE public.spreads OWNER TO postgres;
 CREATE TABLE public.work (
     lp character varying(10),
     ticker character varying(4),
-    size numeric(6,3)
+    size numeric(6,3),
+    id smallint NOT NULL
 );
 
 
 ALTER TABLE public.work OWNER TO postgres;
+
+--
+-- Name: work_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.work_id_seq
+    AS smallint
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.work_id_seq OWNER TO postgres;
+
+--
+-- Name: work_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.work_id_seq OWNED BY public.work.id;
+
+
+--
+-- Name: config id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.config ALTER COLUMN id SET DEFAULT nextval('public.config_id_seq'::regclass);
+
+
+--
+-- Name: work id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.work ALTER COLUMN id SET DEFAULT nextval('public.work_id_seq'::regclass);
+
 
 --
 -- PostgreSQL database dump complete
