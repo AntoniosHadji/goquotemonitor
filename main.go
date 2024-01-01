@@ -29,6 +29,9 @@ func main() {
 
 			if w.LP == "Coinbase" {
 				cbwork(w)
+				// TODO: finish work to integrate sFOX quotes ~7bps on new years day
+				// } else if w.LP == "sFOX" {
+				// 	sfox.Work(w.LP)
 			} else {
 				dowork(w)
 			}
