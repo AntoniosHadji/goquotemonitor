@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 15.1 (Debian 15.1-1.pgdg110+1)
--- Dumped by pg_dump version 15.1 (Debian 15.1-1.pgdg110+1)
+-- Dumped from database version 15.5 (Debian 15.5-1.pgdg120+1)
+-- Dumped by pg_dump version 15.5 (Debian 15.5-1.pgdg120+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -16,30 +16,83 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: work; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.work (
+    lp character varying(10),
+    ticker character varying(4),
+    size numeric(6,3),
+    id smallint NOT NULL
+);
+
+
+ALTER TABLE public.work OWNER TO postgres;
+
+--
+-- Name: work_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.work_id_seq
+    AS smallint
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.work_id_seq OWNER TO postgres;
+
+--
+-- Name: work_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.work_id_seq OWNED BY public.work.id;
+
+
+--
+-- Name: work id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.work ALTER COLUMN id SET DEFAULT nextval('public.work_id_seq'::regclass);
+
+
 --
 -- Data for Name: work; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.work (lp, ticker, size) FROM stdin;
-Enigma	BTC	1.000
-Enigma	BTC	0.010
-Enigma	ETH	1.000
-DV	ETH	1.000
-DV	BTC	1.000
-DV	BTC	0.010
-DV	LTC	1.000
-DV	AVAX	10.000
-DV	SOL	10.000
-DV	USDC	100.000
-Enigma	USDC	100.000
-DV	USDT	100.000
-Enigma	USDT	100.000
-Coinbase	BTC	1.000
-Coinbase	ETH	1.000
+COPY public.work (lp, ticker, size, id) FROM stdin;
+Enigma	BTC	1.000	1
+Enigma	ETH	1.000	2
+DV	ETH	1.000	3
+DV	BTC	1.000	4
+DV	LTC	1.000	5
+DV	AVAX	10.000	6
+DV	SOL	10.000	7
+DV	USDT	100.000	8
+Coinbase	BTC	1.000	9
+Coinbase	ETH	1.000	10
+DV	USDC	100.000	11
+DV	ATOM	1.000	12
+Enigma	USDC	100.000	13
+Enigma	USDT	100.000	14
 \.
+
+
+--
+-- Name: work_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.work_id_seq', 14, true);
 
 
 --
 -- PostgreSQL database dump complete
 --
--- added USDC USDT Enigma manually 05/24/23
+
