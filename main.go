@@ -5,6 +5,8 @@ import (
 	"log"
 	"sync"
 	"time"
+
+	"github.com/antonioshadji/goquotemonitor/db"
 )
 
 var port = flag.String("port", "8080", "Port to listen on for web ui.")
@@ -16,14 +18,14 @@ func init() {
 
 func main() {
 	flag.Parse()
-	defer db.Close()
-	defer stmt.Close() // Prepared statements take up server resources and should be closed after use.
+	defer db.DB.Close()
+	defer db.Stmt.Close() // Prepared statements take up server resources and should be closed after use.
 
 	var mainwg sync.WaitGroup
-	for i, w := range WorkList {
+	for i, w := range db.WorkList {
 		log.Printf("%02d: %#v", i, w)
 
-		go func(w Work) {
+		go func(w db.Work) {
 			mainwg.Add(1)
 			defer mainwg.Done()
 
@@ -42,7 +44,7 @@ func main() {
 	}
 
 	// TODO: work in progress - display config settings and edit
-	go webui(*port)
+	go db.Webui(*port)
 
 	// TODO: add mechanism for stopping go routines
 	log.Println("Waiting for Main WaitGroup.")

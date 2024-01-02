@@ -1,4 +1,4 @@
-package main
+package db
 
 import (
 	"fmt"
@@ -13,7 +13,7 @@ func TestStdLibSQL(t *testing.T) {
 	var err error
 
 	var greeting string
-	err = db.QueryRow("select 'Hello, world!'").Scan(&greeting)
+	err = DB.QueryRow("select 'Hello, world!'").Scan(&greeting)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "QueryRow failed: %v\n", err)
 		os.Exit(1)
@@ -26,23 +26,23 @@ func TestStdLibSQL(t *testing.T) {
 func TestInsert(t *testing.T) {
 	var err error
 
-	stmt, err := db.Prepare("INSERT INTO spreads (ts,bid,ask,size,width_bps,ticker,lp) VALUES($1,$2,$3,$4,$5,$6,$7)")
+	Stmt, err := DB.Prepare("INSERT INTO spreads (ts,bid,ask,size,width_bps,ticker,lp) VALUES($1,$2,$3,$4,$5,$6,$7)")
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer stmt.Close() // Prepared statements take up server resources and should be closed after use.
+	defer Stmt.Close() // Prepared statements take up server resources and should be closed after use.
 
 	data := InsertRow{
-		ts:     time.Now().UTC(),
-		bid:    17123.50,
-		ask:    17150.50,
-		size:   1.0,
-		width:  26.5,
-		ticker: "XXX",
-		lp:     "TEST",
+		TS:     time.Now().UTC(),
+		Bid:    17123.50,
+		Ask:    17150.50,
+		Size:   1.0,
+		Width:  26.5,
+		Ticker: "XXX",
+		LP:     "TEST",
 	}
 
-	result, err := stmt.Exec(data.ts, data.bid, data.ask, data.size, data.width, data.ticker, data.lp)
+	result, err := Stmt.Exec(data.TS, data.Bid, data.Ask, data.Size, data.Width, data.Ticker, data.LP)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -58,7 +58,7 @@ func TestInsert(t *testing.T) {
 	}
 	fmt.Printf("id: %d , rows: %d\n", id, rows)
 
-	result, err = db.Exec("DELETE FROM spreads WHERE lp = $1;", "TEST")
+	result, err = DB.Exec("DELETE FROM spreads WHERE lp = $1;", "TEST")
 	if err != nil {
 		t.Fatal("Failed delete query.", err)
 	}
@@ -80,7 +80,7 @@ func TestQuerySelect(t *testing.T) {
 
 	var worklist []Work
 
-	rows, err := db.Query("SELECT * FROM work order by ticker,size,lp")
+	rows, err := DB.Query("SELECT * FROM work order by ticker,size,lp")
 	if err != nil {
 		fmt.Println(fmt.Errorf("%v", err))
 	}
@@ -88,7 +88,7 @@ func TestQuerySelect(t *testing.T) {
 	// Loop through rows, using Scan to assign column data to struct fields.
 	for rows.Next() {
 		var w Work
-		if err := rows.Scan(&w.lp, &w.ticker, &w.size); err != nil {
+		if err := rows.Scan(&w.LP, &w.Ticker, &w.Size); err != nil {
 			fmt.Println(fmt.Errorf("%v", err))
 		}
 		worklist = append(worklist, w)

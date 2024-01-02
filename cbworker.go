@@ -3,9 +3,11 @@ package main
 import (
 	"log"
 	"time"
+
+	"github.com/antonioshadji/goquotemonitor/db"
 )
 
-func cbwork(w Work) {
+func cbwork(w db.Work) {
 	for {
 		response, err := getBook(w.Ticker)
 		if err != nil {
@@ -16,7 +18,8 @@ func cbwork(w Work) {
 
 		bid, ask, bps := calcSpread(response, w.Size)
 
-		data := InsertRow{
+		// TODO: unkeyed struct warning
+		data := db.InsertRow{
 			time.Now().UTC(),
 			bid,
 			ask,
@@ -25,7 +28,7 @@ func cbwork(w Work) {
 			w.Ticker,
 			"Coinbase",
 		}
-		result, err := insertData(data)
+		result, err := db.InsertData(data)
 		if err != nil {
 			log.Println(err)
 		}

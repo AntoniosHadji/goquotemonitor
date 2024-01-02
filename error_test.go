@@ -30,10 +30,12 @@ func TestError(t *testing.T) {
 	fmt.Println(r)
 	fmt.Println(r.Errors)
 	fmt.Println(r.Errors[0])
-	fmt.Println(r.Errors[0]["status"])
-	fmt.Println(r.Errors[0]["title"])
-	fmt.Println(r.Errors[0]["detail"])
-	fmt.Println(r.Errors[0]["source"])
+	// TODO: error resolve
+	// fmt.Println(r.Errors[0]["status"])
+
+	// fmt.Println(r.Errors[0]["title"])
+	// fmt.Println(r.Errors[0]["detail"])
+	// fmt.Println(r.Errors[0]["source"])
 
 }
 

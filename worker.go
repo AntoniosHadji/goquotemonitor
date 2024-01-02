@@ -4,18 +4,20 @@ import (
 	"log"
 	"sync"
 	"time"
+
+	"github.com/antonioshadji/goquotemonitor/db"
 )
 
-func dowork(w Work) {
+func dowork(w db.Work) {
 	bidreq := QuoteRequest{}
 	bidreq.Data.Type = "quotes"
-	bidreq.Data.Attributes.AccountID = account
-	bidreq.Data.Attributes.AssetID = assets[w.Ticker]
+	bidreq.Data.Attributes.AccountID = db.Account
+	bidreq.Data.Attributes.AssetID = db.Assets[w.Ticker]
 	bidreq.Data.Attributes.TransactionType = "sell"
 	bidreq.Data.Attributes.UnitCount = w.Size
 	if w.LP == "Enigma" {
 		bidreq.Data.Attributes.DelayedSettlement = true
-		bidreq.Data.Attributes.TradeDeskID = tradeDesk["Enigma"]
+		bidreq.Data.Attributes.TradeDeskID = db.TradeDesk["Enigma"]
 	}
 
 	askreq := bidreq
@@ -72,7 +74,8 @@ func dowork(w Work) {
 			bid = response1.Data.Attributes.PricePerUnit
 		}
 		bps := 10000 * ((ask - bid) / bid)
-		data := InsertRow{
+		// TODO: unkeyed fields in struct
+		data := db.InsertRow{
 			response1.Data.Attributes.CreatedAt,
 			bid,
 			ask,
@@ -81,7 +84,7 @@ func dowork(w Work) {
 			w.Ticker,
 			w.LP,
 		}
-		result, err := insertData(data)
+		result, err := db.InsertData(data)
 		if err != nil {
 			log.Println(err)
 		}

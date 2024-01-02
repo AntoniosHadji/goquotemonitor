@@ -1,4 +1,4 @@
-package main
+package db
 
 import (
 	"embed"
@@ -23,7 +23,8 @@ func init() {
 	}
 }
 
-func webui(port string) {
+// Webui starting point for DB UI
+func Webui(port string) {
 
 	// Define a handler functions
 	http.HandleFunc("/", work)
@@ -41,7 +42,7 @@ func webui(port string) {
 
 func work(w http.ResponseWriter, r *http.Request) {
 	// Prepare the query
-	rows, err := db.Query("SELECT lp, ticker, size , id FROM work")
+	rows, err := DB.Query("SELECT lp, ticker, size , id FROM work")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -68,7 +69,7 @@ func work(w http.ResponseWriter, r *http.Request) {
 
 func config(w http.ResponseWriter, r *http.Request) {
 	// Prepare the query
-	rows, err := db.Query("SELECT data_type, key, value, id FROM config")
+	rows, err := DB.Query("SELECT data_type, key, value, id FROM config")
 	if err != nil {
 		log.Fatal(err)
 	}

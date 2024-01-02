@@ -6,6 +6,8 @@ import (
 	"os"
 	"strconv"
 	"testing"
+
+	"github.com/antonioshadji/goquotemonitor/db"
 )
 
 func TestCoinbaseQuote(t *testing.T) {
@@ -55,7 +57,14 @@ func TestCalcSpread(t *testing.T) {
 }
 
 func TestCBWork(t *testing.T) {
+	// TODO: include in testing
 	t.SkipNow()
+	work := db.Work{
+		LP:     "Coinbase",
+		Ticker: "BTC",
+		Size:   1.0,
+	}
+
 	// this code does not return
-	cbwork("BTC", 1)
+	cbwork(work)
 }

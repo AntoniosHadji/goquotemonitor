@@ -1,4 +1,4 @@
-package main
+package db
 
 import (
 	"database/sql"
@@ -10,8 +10,8 @@ import (
 	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
-var db *sql.DB
-var stmt *sql.Stmt
+var DB *sql.DB
+var Stmt *sql.Stmt
 
 // Work struct containing details of each quote pair
 type Work struct {
@@ -35,25 +35,25 @@ type Config struct {
 // ConfigList - array of data from config db table
 var ConfigList []Config
 
-var tradeDesk = make(map[string]string)
-var assets = make(map[string]string)
-var account string
+var TradeDesk = make(map[string]string)
+var Assets = make(map[string]string)
+var Account string
 
 // InsertRow struct to hold data from calculations
 type InsertRow struct {
-	ts     time.Time
-	bid    float64
-	ask    float64
-	size   float64
-	width  float64
-	ticker string
-	lp     string
+	TS     time.Time
+	Bid    float64
+	Ask    float64
+	Size   float64
+	Width  float64
+	Ticker string
+	LP     string
 }
 
 func init() {
 	var err error
 	// Opening a driver typically will not attempt to connect to the database.
-	db, err = sql.Open("pgx", os.Getenv("DATABASE_URL"))
+	DB, err = sql.Open("pgx", os.Getenv("DATABASE_URL"))
 	if err != nil {
 		// This will not be a connection error, but a DSN parse error or
 		// another initialization error.
@@ -61,18 +61,18 @@ func init() {
 		os.Exit(1)
 	}
 
-	db.SetConnMaxLifetime(0)
-	db.SetMaxIdleConns(10)
+	DB.SetConnMaxLifetime(0)
+	DB.SetMaxIdleConns(10)
 	// default Postgres maximum
-	db.SetMaxOpenConns(100)
+	DB.SetMaxOpenConns(100)
 
-	err = db.Ping()
+	err = DB.Ping()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
 		os.Exit(1)
 	}
 
-	stmt, err = db.Prepare("INSERT INTO spreads (ts,bid,ask,size,width_bps,ticker,lp) VALUES($1,$2,$3,$4,$5,$6,$7)")
+	Stmt, err = DB.Prepare("INSERT INTO spreads (ts,bid,ask,size,width_bps,ticker,lp) VALUES($1,$2,$3,$4,$5,$6,$7)")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -90,8 +90,8 @@ func init() {
 
 }
 
-func insertData(d InsertRow) (sql.Result, error) {
-	result, err := stmt.Exec(d.ts, d.bid, d.ask, d.size, d.width, d.ticker, d.lp)
+func InsertData(d InsertRow) (sql.Result, error) {
+	result, err := Stmt.Exec(d.TS, d.Bid, d.Ask, d.Size, d.Width, d.Ticker, d.LP)
 	if err != nil {
 		log.Println(err)
 	}
@@ -104,7 +104,7 @@ func getWork() ([]Work, error) {
 
 	var worklist []Work
 
-	rows, err := db.Query("SELECT * FROM work order by ticker,size,lp")
+	rows, err := DB.Query("SELECT * FROM work order by ticker,size,lp")
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
@@ -126,7 +126,7 @@ func getWork() ([]Work, error) {
 func getConfig() ([]Config, error) {
 	var cfglist []Config
 
-	rows, err := db.Query("SELECT * FROM config order by data_type, key")
+	rows, err := DB.Query("SELECT * FROM config order by data_type, key")
 	if err != nil {
 		return nil, fmt.Errorf("%v", err)
 	}
@@ -150,22 +150,22 @@ func processConfig() {
 		log.Printf("%02d: %#v", i, c)
 		switch c.Datatype {
 		case "account":
-			account = c.Value
+			Account = c.Value
 		case "assets":
-			assets[c.Key] = c.Value
+			Assets[c.Key] = c.Value
 		case "tradeDesk":
-			tradeDesk[c.Key] = c.Value
+			TradeDesk[c.Key] = c.Value
 		default:
 			log.Printf("[WARNING] Not implemented config data type: %s\n", c.Datatype)
 		}
 	}
 
 	log.Println("Configured trade desks:")
-	for k, v := range tradeDesk {
+	for k, v := range TradeDesk {
 		log.Printf("%6s: %s", k, v)
 	}
 	log.Println("Configured assets:")
-	for k, v := range assets {
+	for k, v := range Assets {
 		log.Printf("%4s: %s", k, v)
 	}
 

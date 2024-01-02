@@ -4,18 +4,20 @@ import (
 	"encoding/json"
 	"fmt"
 	"testing"
+
+	"github.com/antonioshadji/goquotemonitor/db"
 )
 
 func TestPTRequestBody(t *testing.T) {
 
 	var reqdata = QuoteRequest{}
 	reqdata.Data.Type = "quotes"
-	reqdata.Data.Attributes.AccountID = account
-	reqdata.Data.Attributes.AssetID = assets["BTC"]
+	reqdata.Data.Attributes.AccountID = db.Account
+	reqdata.Data.Attributes.AssetID = db.Assets["BTC"]
 	reqdata.Data.Attributes.TransactionType = "sell"
 	reqdata.Data.Attributes.UnitCount = 1.0
 	reqdata.Data.Attributes.Hot = false
-	reqdata.Data.Attributes.TradeDeskID = tradeDesk["Enigma"]
+	reqdata.Data.Attributes.TradeDeskID = db.TradeDesk["Enigma"]
 	reqdata.Data.Attributes.DelayedSettlement = true
 
 	pb, err := json.Marshal(reqdata)
@@ -39,12 +41,12 @@ func TestPrepareQuoteRequest(t *testing.T) {
 
 	var reqdata = QuoteRequest{}
 	reqdata.Data.Type = "quotes"
-	reqdata.Data.Attributes.AccountID = account
-	reqdata.Data.Attributes.AssetID = assets["BTC"]
+	reqdata.Data.Attributes.AccountID = db.Account
+	reqdata.Data.Attributes.AssetID = db.Assets["BTC"]
 	reqdata.Data.Attributes.TransactionType = "sell"
 	reqdata.Data.Attributes.UnitCount = 1.0
 	reqdata.Data.Attributes.Hot = false
-	reqdata.Data.Attributes.TradeDeskID = tradeDesk["Enigma"]
+	reqdata.Data.Attributes.TradeDeskID = db.TradeDesk["Enigma"]
 	reqdata.Data.Attributes.DelayedSettlement = true
 
 	var reqdata2 = reqdata

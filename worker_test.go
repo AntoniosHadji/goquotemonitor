@@ -1,11 +1,19 @@
 package main
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/antonioshadji/goquotemonitor/db"
+)
 
 func TestWorker(t *testing.T) {
 	// this code does not end
 	t.SkipNow()
 
-	w := Work{"Enigma", "BTC", 1.0}
+	w := db.Work{
+		LP:     "Enigma",
+		Ticker: "BTC",
+		Size:   1.0,
+	}
 	dowork(w)
 }
