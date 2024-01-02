@@ -6,7 +6,9 @@ import (
 	"sync"
 	"time"
 
+	"github.com/antonioshadji/goquotemonitor/coinbase"
 	"github.com/antonioshadji/goquotemonitor/db"
+	"github.com/antonioshadji/goquotemonitor/sfox"
 )
 
 var port = flag.String("port", "8080", "Port to listen on for web ui.")
@@ -30,10 +32,9 @@ func main() {
 			defer mainwg.Done()
 
 			if w.LP == "Coinbase" {
-				cbwork(w)
-				// TODO: finish work to integrate sFOX quotes ~7bps on new years day
-				// } else if w.LP == "sFOX" {
-				// 	sfox.Work(w.LP)
+				coinbase.Work(w)
+			} else if w.LP == "sFOX" {
+				sfox.Work(w)
 			} else {
 				dowork(w)
 			}

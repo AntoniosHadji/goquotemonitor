@@ -1,4 +1,4 @@
-package main
+package coinbase
 
 import (
 	"encoding/json"
@@ -66,5 +66,5 @@ func TestCBWork(t *testing.T) {
 	}
 
 	// this code does not return
-	cbwork(work)
+	Work(work)
 }

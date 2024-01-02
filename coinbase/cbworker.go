@@ -1,4 +1,4 @@
-package main
+package coinbase
 
 import (
 	"log"
@@ -7,7 +7,7 @@ import (
 	"github.com/antonioshadji/goquotemonitor/db"
 )
 
-func cbwork(w db.Work) {
+func Work(w db.Work) {
 	for {
 		response, err := getBook(w.Ticker)
 		if err != nil {

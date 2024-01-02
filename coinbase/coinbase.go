@@ -1,4 +1,4 @@
-package main
+package coinbase
 
 import (
 	"encoding/json"
@@ -9,6 +9,7 @@ import (
 )
 
 var cbBaseURL = "https://api.exchange.coinbase.com"
+var client = &http.Client{}
 
 // CoinbaseBookResponse ...
 type CoinbaseBookResponse struct {

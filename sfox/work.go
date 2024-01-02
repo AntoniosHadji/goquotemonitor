@@ -1,7 +1,11 @@
 package sfox
 
-import "log"
+import (
+	"log"
 
-func Work(lp string) {
-	log.Println(lp)
+	"github.com/antonioshadji/goquotemonitor/db"
+)
+
+func Work(w db.Work) {
+	log.Println(w)
 }
