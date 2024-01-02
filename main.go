@@ -36,7 +36,10 @@ func main() {
 			} else if w.LP == "sFOX" {
 				sfox.Work(w)
 			} else {
-				dowork(w)
+				log.Printf("LP %v not implemented", w.LP)
+
+				// PT no longer available
+				// dowork(w)
 			}
 
 		}(w)
