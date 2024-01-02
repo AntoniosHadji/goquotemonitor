@@ -1,4 +1,4 @@
-module github.com/primetrust/goquotemonitor
+module github.com/antonioshadji/goquotemonitor
 
 go 1.19
 
