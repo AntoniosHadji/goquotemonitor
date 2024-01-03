@@ -2,8 +2,10 @@ start:
 	docker run --name quotemonitor \
 		--env-file ./setup/env \
 		--restart unless-stopped \
+		--network=server \
 		-p 8080:8080 \
-		-d ghcr.io/primetrust/goquotemonitor
+		-d quotes:ubuntu
+		#-d ghcr.io/primetrust/goquotemonitor
 
 postgres:
 	docker run --name postgres15-server \
