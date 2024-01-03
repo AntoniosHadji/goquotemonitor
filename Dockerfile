@@ -1,12 +1,9 @@
 ## Build
-FROM golang:1.19 AS build
+FROM golang:1.21 AS build
 
 WORKDIR /app
 
-COPY go.mod .
-COPY go.sum .
-COPY *.go ./
-COPY templates/ templates/
+COPY .  ./
 RUN go mod download
 
 RUN go build -o goquotemonitor .
