@@ -4,8 +4,7 @@ start:
 		--restart unless-stopped \
 		--network=server \
 		-p 8080:8080 \
-		-d quotes:ubuntu
-		#-d ghcr.io/primetrust/goquotemonitor
+		-d ghcr.io/antonioshadji/goquotemonitor
 
 postgres:
 	docker run --name postgres15-server \

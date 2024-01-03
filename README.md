@@ -61,3 +61,9 @@ History:
 * 2022-12-16 Added Coinbase worker
 * 2022-12-20 No time delay between initial requests + refactor updates
 * 2022-12-21 Data for quote parameters comes from table maintained in DB
+
+Notes:
+------
+
+github actions
+* replaced `${{ github.repository }}` with `antonioshadji/goquotemonitor` because tag must be lowercase
