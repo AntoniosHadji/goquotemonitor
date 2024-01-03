@@ -37,9 +37,6 @@ func main() {
 				sfox.Work(w)
 			} else {
 				log.Printf("LP %v not implemented", w.LP)
-
-				// PT no longer available
-				// dowork(w)
 			}
 
 		}(w)

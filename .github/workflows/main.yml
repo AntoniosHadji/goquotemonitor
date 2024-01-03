@@ -4,7 +4,7 @@ name: ci
 on:
   push:
     branches: [main]
-    paths: ['**.go', go.*, Dockerfile, templates/*, '!*_test.go']
+    paths: ['**.go', go.*, Dockerfile, /db/templates/*, '!*_test.go']
 jobs:
   docker:
     runs-on: ubuntu-latest
