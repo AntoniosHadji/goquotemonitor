@@ -74,15 +74,15 @@ func dowork(w db.Work) {
 			bid = response1.Data.Attributes.PricePerUnit
 		}
 		bps := 10000 * ((ask - bid) / bid)
-		// TODO: unkeyed fields in struct
+
 		data := db.InsertRow{
-			response1.Data.Attributes.CreatedAt,
-			bid,
-			ask,
-			w.Size,
-			bps,
-			w.Ticker,
-			w.LP,
+			TS:     response1.Data.Attributes.CreatedAt,
+			Bid:    bid,
+			Ask:    ask,
+			Size:   w.Size,
+			Width:  bps,
+			Ticker: w.Ticker,
+			LP:     w.LP,
 		}
 		result, err := db.InsertData(data)
 		if err != nil {

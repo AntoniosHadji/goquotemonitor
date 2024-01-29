@@ -22,15 +22,14 @@ func Work(w db.Work) {
 
 		bid, ask, bps := CalcSpread(response, w.Size)
 
-		// TODO: unkeyed struct warning
 		data := db.InsertRow{
-			time.Now().UTC(),
-			bid,
-			ask,
-			w.Size,
-			bps,
-			w.Ticker,
-			vendor,
+			TS:     time.Now().UTC(),
+			Bid:    bid,
+			Ask:    ask,
+			Size:   w.Size,
+			Width:  bps,
+			Ticker: w.Ticker,
+			LP:     vendor,
 		}
 		result, err := db.InsertData(data)
 		if err != nil {
