@@ -6,7 +6,7 @@ import (
 )
 
 func TestMarket(t *testing.T) {
-	response, err := GetBook("BTC")
+	response, err := GetBook("BTCUSD")
 	if err != nil {
 		t.Fatalf(`Error: %v`, err)
 	}
@@ -34,4 +34,12 @@ func TestMarket(t *testing.T) {
 	bid, ask, spread := CalcSpread(response, 1.0)
 
 	log.Println(bid, ask, spread)
+}
+
+func TestRFQ(t *testing.T) {
+	response, err := GetRFQ("BTCUSD", "BUY", 1.0)
+	if err != nil {
+		t.Fatalf("error:%v", err)
+	}
+	log.Printf("%#v", response)
 }
