@@ -19,7 +19,7 @@ type CoinbaseBookResponse struct {
 }
 
 func getBook(ticker string) (*CoinbaseBookResponse, error) {
-	path := fmt.Sprintf("%s/products/%s-USD/book?level=2", cbBaseURL, ticker)
+	path := fmt.Sprintf("%s/products/%s/book?level=2", cbBaseURL, ticker)
 	req, err := http.NewRequest("GET", path, nil)
 	if err != nil {
 		log.Println(err)

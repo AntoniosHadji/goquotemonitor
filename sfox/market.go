@@ -27,7 +27,7 @@ type BookResponse struct {
 
 func GetBook(ticker string) (*BookResponse, error) {
 
-	path := fmt.Sprintf("%s/markets/orderbook/%susd", baseURL, ticker)
+	path := fmt.Sprintf("%s/markets/orderbook/%s", baseURL, ticker)
 	req, err := http.NewRequest("GET", strings.ToLower(path), nil)
 	if err != nil {
 		log.Println(err)

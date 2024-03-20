@@ -88,7 +88,7 @@ CREATE TABLE public.spreads (
     ask numeric(9,4),
     size numeric(6,3),
     width_bps numeric(7,3),
-    ticker character varying(4),
+    ticker character varying(9),
     lp character varying(10)
 );
 
@@ -101,7 +101,7 @@ ALTER TABLE public.spreads OWNER TO postgres;
 
 CREATE TABLE public.work (
     lp character varying(10),
-    ticker character varying(4),
+    ticker character varying(9),
     size numeric(6,3),
     id smallint NOT NULL
 );

@@ -68,20 +68,8 @@ ALTER TABLE ONLY public.work ALTER COLUMN id SET DEFAULT nextval('public.work_id
 --
 
 COPY public.work (lp, ticker, size, id) FROM stdin;
-Enigma	BTC	1.000	1
-Enigma	ETH	1.000	2
-DV	ETH	1.000	3
-DV	BTC	1.000	4
-DV	LTC	1.000	5
-DV	AVAX	10.000	6
-DV	SOL	10.000	7
-DV	USDT	100.000	8
-Coinbase	BTC	1.000	9
-Coinbase	ETH	1.000	10
-DV	USDC	100.000	11
-DV	ATOM	1.000	12
-Enigma	USDC	100.000	13
-Enigma	USDT	100.000	14
+Coinbase	BTC-USD	1.000	9
+Coinbase	ETH-USD	1.000	10
 \.
 
 
@@ -95,4 +83,3 @@ SELECT pg_catalog.setval('public.work_id_seq', 14, true);
 --
 -- PostgreSQL database dump complete
 --
-
