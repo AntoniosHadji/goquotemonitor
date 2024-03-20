@@ -21,8 +21,19 @@ grafana:
 		-p 3000:3000 \
 		-d grafana/grafana
 
-build-local:
+local-build:
 	docker build -t quotes:ubuntu .
+
+local-start:
+	docker run --name quotemonitor \
+		--env-file ./setup/env \
+		--restart unless-stopped \
+		--network=server \
+		-p 8080:8080 \
+		-d quotes:ubuntu
 
 show-errors:
 	docker logs quotemonitor 2>&1 | rg Error
+
+db-connect:
+	docker exec -it postgres15-server psql -U postgres --db primetrust
