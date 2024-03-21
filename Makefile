@@ -37,3 +37,6 @@ show-errors:
 
 db-connect:
 	docker exec -it postgres15-server psql -U postgres --db primetrust
+
+db-connect-server:
+	docker run -it --rm -e PGPASSWORD=password postgres:15 psql -U postgres -h 10.0.0.99 -d primetrust
