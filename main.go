@@ -9,6 +9,7 @@ import (
 	"github.com/antonioshadji/goquotemonitor/coinbase"
 	"github.com/antonioshadji/goquotemonitor/db"
 	"github.com/antonioshadji/goquotemonitor/sfox"
+	"github.com/antonioshadji/goquotemonitor/kraken"
 )
 
 var port = flag.String("port", "8080", "Port to listen on for web ui.")
@@ -35,6 +36,8 @@ func main() {
 				coinbase.Work(w)
 			} else if w.LP == "sFOX" {
 				sfox.Work(w)
+      } else if w.LP == "Kraken" {
+        kraken.Work(w)
 			} else {
 				log.Printf("LP %v not implemented", w.LP)
 			}
