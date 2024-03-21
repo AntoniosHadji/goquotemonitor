@@ -11,8 +11,8 @@ import (
 	"time"
 )
 
-// var baseURL = "https://api.sfox.com/v1"
-var baseURL = "https://api.staging.sfox.com/v1"
+var baseURL = "https://api.sfox.com/v1"
+// var baseURL = "https://api.staging.sfox.com/v1"
 var token string
 var client = &http.Client{}
 
