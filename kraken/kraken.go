@@ -15,13 +15,13 @@ var (
 
 // OrderBookResponse ...
 type OrderBookResponse struct {
-	Error  interface{} `json:"error"`
-  Result map[string]Prices `json:"result"`
+	Error  interface{}       `json:"error"`
+	Result map[string]Prices `json:"result"`
 }
 
-type Prices struct{
-  Bids [][]interface{} `json:"bids"`
-  Asks [][]interface{} `json:"asks"`
+type Prices struct {
+	Bids [][]interface{} `json:"bids"`
+	Asks [][]interface{} `json:"asks"`
 }
 
 func getBook(ticker string) (*OrderBookResponse, error) {
@@ -58,11 +58,11 @@ func getBook(ticker string) (*OrderBookResponse, error) {
 }
 
 func calcSpread(data *OrderBookResponse, size float64) (float64, float64, float64) {
-  var bid, ask float64
-    for k := range data.Result {
-     bid = getPriceForSize(data.Result[k].Bids, size)
-     ask = getPriceForSize(data.Result[k].Asks, size)
-  }
+	var bid, ask float64
+	for k := range data.Result {
+		bid = getPriceForSize(data.Result[k].Bids, size)
+		ask = getPriceForSize(data.Result[k].Asks, size)
+	}
 	// debug
 	// fmt.Println(bid, ask)
 
